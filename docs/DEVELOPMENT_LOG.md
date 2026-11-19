@@ -20,6 +20,12 @@
 - Live HTML `<title>` is exactly `TIMUN Sfax`; head contains icon links with `sizes="512x512"`, `64x64`, `32x32`, `16x16` and `apple-touch-icon` `180x180`.
 - All five icon routes return HTTP 200.
 
+### Follow-up correction (same session)
+- Owner reported the blue/navy tile behind the icon and asked for a **transparent PNG from the logo**.
+- Rebuilt all five icons from `public/images/branding/timun-sfax-logo.png` (official colour logo, byte-exact content) with alpha = 0 outside the mark — no tile, no white variant.
+- GDI+ could not do this cleanly (semi-transparent artefacts on a transparent canvas), so a custom premultiplied-alpha box resampler was used; output corners are fully transparent on every size, and average opaque RGB `(132,115,96)` matches the source exactly.
+- Re-verified lint, typecheck, build, live `<title>`, all five icon links and HTTP 200 routes.
+
 ---
 
 ## Session 02 — 19 November 2026 — Phase 1: Project Setup
