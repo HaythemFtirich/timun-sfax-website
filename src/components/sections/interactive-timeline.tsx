@@ -25,8 +25,8 @@ export function InteractiveTimeline() {
   const [active, setActive] = useState(0);
   const [dragging, setDragging] = useState(false);
   const railRef = useRef<HTMLOListElement>(null);
-  const dragRef = useRef<{ x: number; index: number } | null>(null);
-  const manualRef = useRef(false);
+  const dragRef = useRef<{ x: number; y: number } | null>(null);
+  const movedRef = useRef(false);
   const current = timeline[active];
 
   useEffect(() => {
@@ -59,8 +59,6 @@ export function InteractiveTimeline() {
     };
 
     const onScroll = () => {
-      // Any real scroll hands control back to the scroll-driven traveller.
-      manualRef.current = false;
       if (!frame) frame = window.requestAnimationFrame(update);
     };
 
@@ -77,23 +75,35 @@ export function InteractiveTimeline() {
     };
   }, []);
 
+  const maxScroll = () =>
+    Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+
   /**
-   * Manual scrub from drag or arrow keys. Update the active year and the rail
-   * progress directly — without scrolling the page — so the traveller and fill
-   * follow the finger/key. The next real scroll hands control back to scroll.
+   * Scroll the page so the chosen milestone sits at the progress marker. The
+   * scroll listener then updates the active year, traveller and rail — the page
+   * and the timeline move together.
    */
-  const select = (index: number) => {
+  const scrollToIndex = (index: number) => {
+    const rail = railRef.current;
+    if (!rail) return;
     const next = clamp(index, 0, timeline.length - 1);
-    manualRef.current = true;
-    setActive(next);
-    railRef.current?.style.setProperty(
-      "--timeline-progress",
-      ((next + 0.5) / timeline.length).toFixed(4),
+    const rect = rail.getBoundingClientRect();
+    const railTop = rect.top + window.scrollY;
+    const progress = (next + 0.5) / timeline.length;
+    const marker = window.innerHeight * 0.45;
+    const target = clamp(
+      railTop + progress * rect.height - marker,
+      0,
+      maxScroll(),
     );
+    window.scrollTo({ top: target, behavior: "instant" });
+    rail.style.setProperty("--timeline-progress", progress.toFixed(4));
+    setActive(next);
   };
 
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    dragRef.current = { x: event.clientX, index: active };
+    dragRef.current = { x: event.clientX, y: window.scrollY };
+    movedRef.current = false;
     setDragging(true);
     try {
       event.currentTarget.setPointerCapture(event.pointerId);
@@ -104,10 +114,22 @@ export function InteractiveTimeline() {
 
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const drag = dragRef.current;
-    if (!drag) return;
-    const steps = Math.round((event.clientX - drag.x) / 90);
-    const next = clamp(drag.index + steps, 0, timeline.length - 1);
-    if (next !== active) select(next);
+    const rail = railRef.current;
+    if (!drag || !rail) return;
+    // Horizontal drag scrubs the page scroll; the timeline follows the finger.
+    const rect = rail.getBoundingClientRect();
+    const railTop = rect.top + window.scrollY;
+    const segment = rect.height / timeline.length;
+    const steps = (event.clientX - drag.x) / 90;
+    if (steps !== 0) movedRef.current = true;
+    const target = clamp(drag.y + steps * segment, 0, maxScroll());
+    window.scrollTo({ top: target, behavior: "instant" });
+    const progress = clamp(
+      (window.innerHeight * 0.45 - (railTop - target)) / Math.max(rect.height, 1),
+      0,
+      1,
+    );
+    rail.style.setProperty("--timeline-progress", progress.toFixed(4));
   };
 
   const endDrag = () => {
@@ -115,19 +137,25 @@ export function InteractiveTimeline() {
     setDragging(false);
   };
 
+  /** A tap (not a drag) advances the year to the next milestone. */
+  const onClickAdvance = () => {
+    if (movedRef.current) return;
+    scrollToIndex((active + 1) % timeline.length);
+  };
+
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowRight" || event.key === "ArrowDown") {
       event.preventDefault();
-      select(active + 1);
+      scrollToIndex(active + 1);
     } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
       event.preventDefault();
-      select(active - 1);
+      scrollToIndex(active - 1);
     } else if (event.key === "Home") {
       event.preventDefault();
-      select(0);
+      scrollToIndex(0);
     } else if (event.key === "End") {
       event.preventDefault();
-      select(timeline.length - 1);
+      scrollToIndex(timeline.length - 1);
     }
   };
 
@@ -157,6 +185,7 @@ export function InteractiveTimeline() {
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
+          onClick={onClickAdvance}
           onKeyDown={onKeyDown}
         >
           <div key={current.year} className="year-swap">
@@ -182,7 +211,7 @@ export function InteractiveTimeline() {
               ))}
             </div>
             <span className="font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-muted">
-              Scroll · drag · ← →
+              Click · drag · ← →
             </span>
           </div>
         </div>
@@ -213,7 +242,7 @@ export function InteractiveTimeline() {
                 />
                 <button
                   type="button"
-                  onClick={() => select(i)}
+                  onClick={() => scrollToIndex(i)}
                   aria-current={isActive ? "true" : undefined}
                   className="group block w-full text-left"
                 >

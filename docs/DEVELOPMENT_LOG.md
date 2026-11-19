@@ -302,6 +302,27 @@
 
 ---
 
+## Session 10 — 19 November 2026 — Drag scrolls the timeline; tap advances the year
+
+**Goal:** owner clarification — dragging must move the page/timeline, and clicking the scroll/drag box should advance to the next milestone instead of making the year disappear.
+
+### Tasks completed
+- Horizontal drag now scrubs `window.scrollY` directly with `behavior: "instant"`, so the page and timeline move together. `scrollToIndex` writes `--timeline-progress` directly too, so the traveller never lags a programmatic scroll.
+- Tap (pointer down/up without movement) on the year box advances cyclically to the next milestone; `movedRef` prevents a drag release from double-advancing. Hint text now reads `Click · drag · ← →`.
+- Changed `year-swap` keyframes from an opacity fade to a subtle 8px slide — the year stays at opacity 1 while changing, so it never vanishes.
+
+### Files modified
+`src/components/sections/interactive-timeline.tsx`, `src/app/globals.css`, `docs/TECHNICAL_DECISIONS.md`.
+
+### Verification
+- `npm run lint`, `npm run typecheck`, `npm run build` — all exit 0.
+- Fresh browser tab: four taps advanced 2009 → April 2010 → 2012 → 2015 → 2018; `scrollY` and traveller position changed at every step; year opacity stayed `1`. Drag moved `scrollY` 7575 → 8198 and the traveller to the end of the rail.
+
+### Next steps
+Owner eyeball check on `http://localhost:3000`, then local commit (no remote, no push).
+
+---
+
 ## Entry template for future sessions
 
 ```

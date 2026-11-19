@@ -259,6 +259,15 @@
 | TD-25 | Phase 4 history approval + copy delegation | Approved by owner; mission/vision/values delegated | 19 Nov 2026 |
 | TD-26 | Timeline + numbers dashboard + native motion | Owner request; built under TD-21 library-free thesis | 19 Nov 2026 |
 | TD-27 | Scroll/drag timeline decoupled + closing tile + Mission/Vision photos | Owner polish request; implemented and browser-verified | 19 Nov 2026 |
+| TD-28 | Drag drives page scroll + tap advances year | Owner clarification; implemented and browser-verified | 19 Nov 2026 |
+
+## TD-28 — Drag drives page scroll; tap advances the year
+
+- **Status:** IMPLEMENTED (owner clarification, 19 Nov 2026).
+- **Problem:** the owner clarified that dragging must actually move the timeline/page, and clicking the scroll/drag box should advance to the next milestone rather than making the year disappear.
+- **Selected:** horizontal drag now scrubs `window.scrollY` directly (instant), and the scroll listener moves the traveller, rail fill and active year. Tap (pointer down/up without movement) advances to the next milestone cyclically; drag release is guarded by `movedRef` so it does not double-advance. `scrollToIndex` also writes `--timeline-progress` directly so the circle never lags a programmatic scroll. The `year-swap` keyframes were changed from opacity fade to a subtle 8px slide, so the year is always fully visible (opacity 1) while it changes.
+- **Reason:** the previous decoupling left the page static during drag, which read as "scrolling doesn't work"; the remount/opacity keyframes made the year briefly vanish on each change.
+- **Consequences:** drag, tap, arrows, Home/End and rail buttons all scroll the page and move the timeline; no animation library added. Verified in a fresh browser tab: four consecutive taps advanced 2009 → April 2010 → 2012 → 2015 → 2018 with the traveller following each step and opacity remaining 1.
 
 ## TD-27 — Timeline scrub decoupling, numbers closing tile and section photos
 
