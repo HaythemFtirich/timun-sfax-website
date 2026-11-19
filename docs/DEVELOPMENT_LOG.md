@@ -4,6 +4,24 @@
 
 ---
 
+## Session 03 — 19 November 2026 — Browser tab icon and title
+
+**Owner request:** show the TIMUN Sfax logo in the browser tab next to the name, keep the tab name as only `TIMUN Sfax` (no other text), improve icon quality and make it slightly bigger.
+
+### Work done
+- Changed the root metadata title from `TIMUN Sfax — Tunisian International Model United Nations` to exactly `TIMUN Sfax` (the longer description remains in the meta description and Open Graph description). Inner pages still use the `%s | TIMUN Sfax` template.
+- Rebuilt the tab icons from the corrected white square logo using its exact content region `(0,163,1257,931)`.
+- Generated four `rel="icon"` PNG sizes — 512, 64, 32 and 16 px (`icon.png`, `icon1.png`, `icon2.png`, `icon3.png`) — plus a 180 px `apple-icon.png`. Next.js emits a `sizes` attribute for each so Chrome picks a crisp asset at its current pixel density.
+- Quality improvements: mark enlarged from ~87% to ~95% of tile width; 4x supersampling then high-quality bicubic downsampling; white-on-navy (`#071522`) for contrast. All five files verified fully opaque.
+- No `.ico` and no national-logo variant — only the official TIMUN Sfax mark.
+
+### Verification
+- `npm run lint`, `npm run typecheck`, `npm run build` → all exit 0; build lists seven static routes including all four icon sizes.
+- Live HTML `<title>` is exactly `TIMUN Sfax`; head contains icon links with `sizes="512x512"`, `64x64`, `32x32`, `16x16` and `apple-touch-icon` `180x180`.
+- All five icon routes return HTTP 200.
+
+---
+
 ## Session 02 — 19 November 2026 — Phase 1: Project Setup
 
 **Goal:** Complete Phase 1 end-to-end and leave a running local dev server for the owner.

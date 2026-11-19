@@ -12,7 +12,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteTitle = "TIMUN Sfax — Tunisian International Model United Nations";
+// Browser tab shows exactly "TIMUN Sfax" (owner instruction).
+const siteTitle = "TIMUN Sfax";
 const siteDescription =
   "Official informational website of TIMUN Sfax, the Tunisian International Model United Nations club in Sfax, Tunisia.";
 

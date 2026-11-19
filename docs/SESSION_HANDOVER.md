@@ -1,7 +1,7 @@
 # TIMUN Sfax Website — Session Handover
 
 > **Purpose:** Continuity between sessions. Read this together with `MASTER_ROADMAP.md` and `TASK_TRACKER.md` at the start of every session, then inspect the actual code/files before making changes.
-> **Last updated:** 19 November 2026 — Session 02 (Phase 1 completed and verified).
+> **Last updated:** 19 November 2026 — Session 03 (browser tab title + multi-size official logo icon).
 
 ---
 
@@ -10,6 +10,7 @@
 - **Phase:** Phase 1 — Project Setup. All acceptance criteria verified; status **REVIEW REQUIRED** pending owner review.
 - **Implementation:** Next.js app scaffolded in the project root, running locally. No public pages yet — only an honest placeholder homepage.
 - **Dev server:** Running at **http://localhost:3000** (PID 16056 at verification). Leave it running so the owner can follow changes. Next.js 16 will reuse this server if `npm run dev` is run again.
+- **Browser tab:** title is exactly `TIMUN Sfax`; official white-on-navy logo served as PNG icons at 512/64/32/16 px plus a 180 px Apple touch icon (TD-19). No `.ico`, no national logo in the tab.
 - **Git:** Local repository with an initial commit. **No remote, no push** — deferred to Phase 10 per owner instruction.
 - **Phase 0:** Now continuous; the owner updates `assets/` and supplies approved content incrementally.
 

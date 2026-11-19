@@ -110,6 +110,8 @@ Contrast target: WCAG AA for body text (4.5:1) and large text (3:1), including t
 - Source: `assets/timunsfaxlogo.png` — the official TIMUN Sfax mark and the site icon.
 - The 1969×1969 source has transparent padding. Only fully transparent pixels were removed: the bounds of every pixel with alpha > 0 are `(326,251)–(1582,1181)` → **1257×931**, with every non-transparent pixel preserved byte-for-byte. Each copy was then transparently padded to a **1257×1257 square** in `public/images/branding/` (`timun-sfax-logo.png`, `timun-sfax-logo-white.png`).
 - The derived squares show the mark at full width, while the original 1969 px source shows it at roughly 64% scale — an apparent size difference only; the content bounds are identical. Owner confirmed this is not an issue.
-- Favicon/Apple touch icon: **512×512 navy tile** (`#071522`) with the supplied **white** logo variant centred, saved as `src/app/icon.png` and `src/app/apple-icon.png`. Next.js serves both automatically.
+- Browser-tab icons: navy tile (`#071522`) with the supplied **white** logo variant centred, rendered at **512, 64, 32 and 16 px** (`src/app/icon.png`, `icon1.png`, `icon2.png`, `icon3.png`) so Chrome picks a crisp size at 1x/2x density. The mark fills ~95% of the tile width (slightly larger than the first pass). Each size is supersampled 4x then downsampled with high-quality bicubic filtering, and verified fully opaque.
+- Apple touch icon: **180×180** `src/app/apple-icon.png` with the same treatment.
+- **Browser tab title is exactly `TIMUN Sfax`** (owner instruction) — no suffix. Sub-pages still use the `%s | TIMUN Sfax` template.
 - The owner explicitly permitted cropping and recolouring **for the icon only** (TD-17). Originals in `assets/` remain untouched; general logo rules still apply everywhere else.
 - National TIMUN logo copy: `public/images/branding/timun-national-logo.png` (original, no crop).

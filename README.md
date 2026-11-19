@@ -47,7 +47,7 @@ All must exit with code 0.
 
 ## Branding note
 
-`timunsfaxlogo.png` is the official mark and the source of the site icon. Only fully transparent padding was removed — the exact content bounds of every non-transparent pixel are `(326,251)–(1582,1181)` = **1257×931** — and the result was padded with transparency to a **1257×1257 square**. Every non-transparent pixel is preserved byte-for-byte. The supplied white variant on navy is used for `src/app/icon.png` / `apple-icon.png`. Originals remain untouched in `assets/`.
+`timunsfaxlogo.png` is the official mark and the source of the site icon. Only fully transparent padding was removed — the exact content bounds of every non-transparent pixel are `(326,251)–(1582,1181)` = **1257×931** — and the result was padded with transparency to a **1257×1257 square**. Every non-transparent pixel is preserved byte-for-byte. The supplied white variant on navy is used for the browser-tab icon set (`icon.png`, `icon1.png`, `icon2.png`, `icon3.png` at 512/64/32/16 px) and `apple-icon.png` (180 px). The browser tab title is exactly **TIMUN Sfax**. Originals remain untouched in `assets/`.
 
 ## Git workflow (current agreement)
 
