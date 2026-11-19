@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { ButtonLink, Container } from "@/components/ui";
 
@@ -33,14 +34,25 @@ export function Hero() {
       />
 
       <Container className="relative z-10 pb-16 pt-32 sm:pb-24">
-        <p className="font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-gold">
+        <p
+          className="font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-gold"
+          data-reveal
+        >
           Tunisian International Model United Nations
         </p>
-        <h1 className="mt-5 font-display text-hero font-extrabold leading-[0.9] tracking-[-0.055em] text-foreground text-balance">
+        <h1
+          className="mt-5 font-display text-hero font-extrabold leading-[0.9] tracking-[-0.055em] text-foreground text-balance"
+          data-reveal
+          style={{ "--reveal-delay": "120ms" } as CSSProperties}
+        >
           <span className="block">TIMUN</span>
           <span className="block">Sfax</span>
         </h1>
-        <div className="mt-10 flex flex-wrap items-center gap-6">
+        <div
+          className="mt-10 flex flex-wrap items-center gap-6"
+          data-reveal
+          style={{ "--reveal-delay": "240ms" } as CSSProperties}
+        >
           <ButtonLink href="#about">Discover TIMUN Sfax</ButtonLink>
           <p className="hidden font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-cream sm:block">
             Sfax, Tunisia

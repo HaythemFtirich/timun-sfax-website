@@ -2,6 +2,7 @@
 
 import { useState, type CSSProperties } from "react";
 import { numbers } from "@/content/numbers";
+import { site } from "@/content/site";
 import { Section, SectionHeading } from "@/components/ui";
 import { cn } from "@/lib/cn";
 
@@ -93,6 +94,28 @@ export function NumbersDashboard() {
               <NumbersNote text={item.note} visible={active === i + 1} />
             </button>
           ))}
+
+          <div
+            className="group relative flex min-h-[180px] flex-col justify-between bg-surface/50 p-6 text-left transition-colors duration-[var(--duration-fast)] hover:bg-surface/80 sm:p-8"
+            data-reveal
+            style={{ "--reveal-delay": "350ms" } as CSSProperties}
+          >
+            <span className="font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-gold">
+              Beyond the record
+            </span>
+            <p className="my-5 font-display text-[clamp(1.5rem,2.4vw,2.1rem)] font-bold leading-tight tracking-[var(--tracking-display)] text-cream text-balance">
+              And the journey continues.
+            </p>
+            <span className="flex items-center justify-between border-t border-gold-line pt-4 font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-muted">
+              {site.name}
+              <span
+                aria-hidden="true"
+                className="text-gold transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
+              >
+                ↗
+              </span>
+            </span>
+          </div>
         </div>
       </div>
 

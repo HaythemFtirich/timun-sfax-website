@@ -203,6 +203,9 @@
   - *Dependencies:* owner approval. *Verification:* disabled on touch; focus state intact.
 - [x] **P8-T7** Reduced-motion handling and mobile adaptation.
   - *Dependencies:* P8-T1. *Verification:* `prefers-reduced-motion` and `html[data-motion="static"]` land every reveal in its finished state; `<noscript>` style keeps content visible without JavaScript; no horizontal overflow on either route (Session 07).
+- [x] **P8-T8** Timeline scroll/drag polish, numbers closing tile and section photos (Session 09).
+  - *Verification:* traveller `top` equals `progress × rail height` at all sampled scroll positions in both directions; drag and ← → / Home / End scrub the active year without page scroll; six approved figures plus closing tile on both routes; one photo each in Mission and Vision; lint/typecheck/build pass; no console warnings.
+  - *Notes:* closing-tile wording awaiting owner confirmation (TD-27).
 
 ---
 

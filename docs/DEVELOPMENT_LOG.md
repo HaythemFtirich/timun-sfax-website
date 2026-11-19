@@ -264,6 +264,44 @@
 
 ---
 
+## Session 09 — 19 November 2026 — Timeline polish, numbers closing tile and Mission/Vision photos
+
+**Goal:** owner request — make the timeline traveller and active year follow scroll up/down, make the big year scrub left/right, smooth all load-in motion, fill the last grey grid box with "and the journey continue", and add one group photo each to Mission and Vision.
+
+### Tasks completed
+- Rewrote `InteractiveTimeline` so one rAF scroll pass writes `--timeline-progress` on the rail; CSS moves the traveller circle and fills the rail. Scroll down/up moves the circle and changes the active year; drag sideways or ← → / Home / End scrub the big year and traveller without moving the page.
+- Filled the empty grid cell in the numbers dashboard with a closing tile: **"And the journey continues."** (grammatical form of the requested phrase — owner confirmation pending).
+- Added `groupphoto4.jpg` to the Mission panel and `groupphoto7.jpg` to the Vision panel, each through `AnimatedFigure`.
+- Added `data-reveal` to hero copy, Home Explore section and About tagline section for smoother load-in.
+- Added a `try/catch` around `setPointerCapture` so synthetic/cancelled pointers do not break drag.
+
+### Files created / modified
+- Modified: `src/components/sections/interactive-timeline.tsx`, `src/components/sections/numbers-dashboard.tsx`, `src/components/sections/principles.tsx`, `src/components/sections/hero.tsx`, `src/app/page.tsx`, `src/app/about/page.tsx`, `src/app/globals.css`.
+- Created: `public/images/about/groupphoto4.jpg`, `public/images/about/groupphoto7.jpg` (faithful copies of owner-supplied originals in `assets/`).
+
+### Problems encountered and solutions
+1. **Traveller drifted / lagged behind scroll.** Two causes: (a) `scrollIntoView({block:"center"})` centred items at 50% of the viewport while the scroll marker sits at 45%, so scroll and manual selection fought each other; (b) a React re-applied inline `style={{"--timeline-progress":"0"}}` on every render clobbered the imperative value. *Solution:* removed `scrollIntoView` (manual scrub now updates state and the CSS variable directly, no page scroll), removed the inline style (CSS already defines the initial value), and added `manualRef` so the next real scroll hands control back to scroll.
+2. **CSS transitions on a custom-property `calc()` caused a slow crawl** instead of tracking. *Solution:* removed `transition: top` / `transition: height`; scroll already updates every frame, so motion is smooth without lag.
+3. **Recurring stale CSS after build.** *Solution:* touched `globals.css` after each build to force a clean dev recompile; never killed the dev server.
+
+### Verification / tests performed
+- `npm run lint`, `npm run typecheck`, `npm run build` — all exit 0.
+- Browser (fresh tabs, Home and `/about`): traveller `top` exactly equals `progress × rail height` at sampled positions; progress values 0 / 0.25 / 0.5 / 1 / 0.15 followed scroll both directions; active year changed 2009 → April 2010 → 2012 → 2015 → 2018 and back.
+- Keyboard: ArrowRight / ArrowLeft / End / Home changed the active year and traveller with no page scroll. Drag: +180px advanced two milestones, −360px returned to 2009; `is-dragging` toggled correctly.
+- Structure: six approved figures, closing tile present, 1 Mission image + 1 Vision image on both pages, no horizontal overflow, tab title `TIMUN Sfax` / `About | TIMUN Sfax`, no console warnings or errors.
+
+### Known open items
+- Owner confirmation of the closing-tile wording ("And the journey continues." vs exact "and the journey continue").
+- Owner eyeball check of motion smoothness and the two chosen photos (`groupphoto4`, `groupphoto7`).
+- Same blockers as Session 08: board data, partner/contact details, verified events, study guides.
+
+### Next steps
+1. Commit this polish locally (no remote, no push).
+2. Owner reviews live page and confirms wording/photos.
+3. Resume Phase 5 only when verified event content arrives.
+
+---
+
 ## Entry template for future sessions
 
 ```

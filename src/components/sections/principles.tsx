@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { mission, values, vision } from "@/content/about";
-import { Section, SectionHeading } from "@/components/ui";
+import { site } from "@/content/site";
+import { AnimatedFigure, Section, SectionHeading } from "@/components/ui";
 
 const panel =
   "relative bg-background p-7 transition-colors duration-[var(--duration-fast)] hover:bg-surface/60 sm:p-10";
@@ -17,10 +18,14 @@ function PanelRule() {
 
 /**
  * Mission, vision and values as an asymmetric dashboard — deliberately not
- * three equal cards. All copy comes from src/content/about.ts.
+ * three equal cards. Mission and Vision each carry one authentic group photo.
+ * All copy comes from src/content/about.ts.
  */
 export function Principles() {
-  const statements = [mission, vision];
+  const statements = [
+    { ...mission, image: "/images/about/groupphoto4.jpg", wide: true },
+    { ...vision, image: "/images/about/groupphoto7.jpg", wide: false },
+  ];
 
   return (
     <Section id="principles" className="border-t border-line scroll-mt-24">
@@ -34,9 +39,7 @@ export function Principles() {
         {statements.map((statement, i) => (
           <article
             key={statement.label}
-            className={`group ${panel} ${
-              i === 0 ? "lg:col-span-7 lg:row-span-1" : "lg:col-span-5"
-            }`}
+            className={`group ${panel} ${statement.wide ? "lg:col-span-7" : "lg:col-span-5"}`}
             data-reveal
             style={{ "--reveal-delay": `${i * 70}ms` } as CSSProperties}
           >
@@ -44,13 +47,37 @@ export function Principles() {
             <p className="font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-gold">
               {statement.label}
             </p>
-            <p className="mt-8 font-display text-card font-bold leading-snug tracking-[var(--tracking-display)] text-foreground text-balance">
-              {statement.lead}
-            </p>
-            <div className="mt-5 max-w-[62ch] space-y-4 text-muted">
-              {statement.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+
+            <div
+              className={
+                statement.wide
+                  ? "mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:items-end"
+                  : "mt-10"
+              }
+            >
+              <div>
+                <p className="font-display text-card font-bold leading-snug tracking-[var(--tracking-display)] text-foreground text-balance">
+                  {statement.lead}
+                </p>
+                <div className="mt-5 max-w-[62ch] space-y-4 text-muted">
+                  {statement.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+
+              <AnimatedFigure
+                src={statement.image}
+                alt="TIMUN Sfax group photograph"
+                sizes={
+                  statement.wide
+                    ? "(max-width: 1024px) 100vw, 26vw"
+                    : "(max-width: 1024px) 100vw, 36vw"
+                }
+                caption={site.name}
+                aspect={statement.wide ? "aspect-[4/5]" : "aspect-[16/9]"}
+                className={statement.wide ? "" : "mt-10"}
+              />
             </div>
           </article>
         ))}

@@ -258,3 +258,11 @@
 | TD-24 | Hero image quality + 2× local upscale | Owner chose AI upscale; tool credential failed, faithful local upscale used | 19 Nov 2026 |
 | TD-25 | Phase 4 history approval + copy delegation | Approved by owner; mission/vision/values delegated | 19 Nov 2026 |
 | TD-26 | Timeline + numbers dashboard + native motion | Owner request; built under TD-21 library-free thesis | 19 Nov 2026 |
+| TD-27 | Scroll/drag timeline decoupled + closing tile + Mission/Vision photos | Owner polish request; implemented and browser-verified | 19 Nov 2026 |
+
+## TD-27 — Timeline scrub decoupling, numbers closing tile and section photos
+
+- **Status:** IMPLEMENTED (owner request, 19 Nov 2026).
+- **Selected:** scroll drives `--timeline-progress` through one rAF pass; drag/keyboard update the active year and the CSS variable directly and set `manualRef`, without calling `scrollIntoView` or `window.scrollTo`. The next real scroll clears `manualRef` and resumes scroll-driven tracking.
+- **Reason:** `scrollIntoView` centred milestones at 50% of the viewport while the scroll marker uses 45%, and a React-reapplied inline `--timeline-progress: 0` overwrote the imperative value on every render. Decoupling removes both conflicts and prevents page jumps during scrub.
+- **Consequences:** the traveller and filled rail track scroll exactly in both directions; left/right scrub moves the big year instantly. CSS transitions on custom-property `calc()` values were removed because they caused a slow crawl — scroll itself supplies per-frame smoothness. Added `And the journey continues.` to the last numbers grid cell (wording awaiting owner confirmation) and one owner-supplied group photo each to Mission (`groupphoto4.jpg`) and Vision (`groupphoto7.jpg`). No dependency installed; 0 TND constraint intact.

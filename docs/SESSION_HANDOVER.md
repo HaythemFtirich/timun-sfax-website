@@ -1,13 +1,13 @@
 # TIMUN Sfax Website — Session Handover
 
 > **Purpose:** Continuity between sessions. Read this together with `MASTER_ROADMAP.md` and `TASK_TRACKER.md` at the start of every session, then inspect the actual code/files before making changes.
-> **Last updated:** 19 November 2026 — Session 07 (interactive timeline, numbers dashboard, animated dashboard and photographs).
+> **Last updated:** 19 November 2026 — Session 09 (timeline scroll/drag decoupling, numbers closing tile, Mission/Vision photos).
 
 ---
 
 ## 1. Current project status
 
-- **Phase:** Phase 8 motion pulled forward, **IN PROGRESS**. Session 07 added the interactive timeline, numbers dashboard, animated mission/vision/values dashboard and animated photographs to **both Home and `/about`**. Phase 4 is otherwise complete; the Board preview is held on P0-T10.
+- **Phase:** Phase 8 motion pulled forward, **IN PROGRESS**. Session 09 polished the interactive timeline: the traveller now tracks scroll exactly in both directions, the big year scrubs by drag/arrow keys without moving the page, the numbers dashboard has its closing tile, and Mission/Vision each carry one authentic group photo. Shared by **both Home and `/about`**. Phase 4 is otherwise complete; the Board preview is held on P0-T10.
 - **Phase 3:** implemented (hero, transparent logo header, skip link, 404, Home/About nav); committed in `526ad6d` and `5c0541e`. Remaining nav/footer work still gated on P0-T11/P0-T12 and Phase 8 motion.
 - **Phase 2:** **COMPLETED and committed** (`27a91ef`); only explicit sign-off on `DESIGN_SYSTEM.md` (P2-T6) is still open. Phase 1 accepted by owner.
 - **Implementation:** Next.js 16.4.6 / React 19.3 / Tailwind 4.3.3 / TypeScript. Dark editorial tokens in `src/app/globals.css`; primitives in `src/components/ui/`; public copy single-sourced in `src/content/site.ts` and `src/content/about.ts`; sections in `src/components/sections/`; routes `src/app/page.tsx` and `src/app/about/page.tsx`.
@@ -92,9 +92,9 @@
 
 ## 8. Exact next action
 
-0. **Owner:** eyeball `http://localhost:3000` — scroll to **TIMUN in numbers**, the **mission/vision/values dashboard** and the **interactive timeline**; click a number tile and a timeline year. Same sections are on `/about`. Previews were also placed in the Review pane.
-1. **Owner:** confirm the motion intensity and whether the numbers dashboard reads as "showcase in numbers" rather than text.
-2. **Developer:** commit the Phase 4 work locally (`git add` / `git commit`), still no remote and no push.
+0. **Owner:** eyeball `http://localhost:3000` — scroll the **interactive timeline** up/down and watch the traveller circle; drag the big year sideways and use ← → / Home / End; check the **numbers dashboard** closing tile and the new photos in **Mission** and **Vision**. Same sections are on `/about`.
+1. **Owner:** confirm whether `And the journey continues.` is acceptable or replace with the exact phrase `and the journey continue`.
+2. **Developer:** commit the Session 09 polish locally (`git add` / `git commit`), still no remote and no push.
 3. **Developer:** start Phase 5 structure only when event data/photos (P0-T8) arrive; never fabricate events.
 4. **Owner in parallel:** keep adding approved content/assets to `assets/`, especially board data (P0-T10) to unblock P4-T4 and the footer data (P0-T11/P0-T12).
 

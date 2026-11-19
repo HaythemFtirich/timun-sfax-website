@@ -14,7 +14,7 @@ export default function Home() {
       <Principles />
       <InteractiveTimeline />
 
-      <Section className="border-t border-line">
+      <Section className="border-t border-line" data-reveal>
         <SectionHeading
           eyebrow="Explore"
           title="The full story."

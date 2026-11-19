@@ -122,7 +122,7 @@ export default function AboutPage() {
       <Principles />
       <InteractiveTimeline />
 
-      <Section className="border-t border-line">
+      <Section className="border-t border-line" data-reveal>
         <p className="font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-gold">
           {site.tagline}
         </p>
