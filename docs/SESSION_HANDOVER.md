@@ -1,18 +1,19 @@
 # TIMUN Sfax Website — Session Handover
 
 > **Purpose:** Continuity between sessions. Read this together with `MASTER_ROADMAP.md` and `TASK_TRACKER.md` at the start of every session, then inspect the actual code/files before making changes.
-> **Last updated:** 19 November 2026 — Session 05 (Phase 3 shell + `groupphoto2` hero pulled forward).
+> **Last updated:** 19 November 2026 — Session 06 (Phase 4 Home + About with approved copy).
 
 ---
 
 ## 1. Current project status
 
-- **Phase:** Phase 3 — Shared Layout & Navigation, **IN PROGRESS**. Layout shell, transparent logo header, skip link, 404 page and the owner-requested `groupphoto2` hero are implemented and verified. Desktop/mobile nav and footer remain blocked on nav structure and P0-T11/P0-T12.
+- **Phase:** Phase 4 — Home & About, **IN PROGRESS**. Home and `/about` are built with approved copy and verified live; the Board preview is held on P0-T10.
+- **Phase 3:** implemented (hero, transparent logo header, skip link, 404, Home/About nav); committed in `526ad6d` and `5c0541e`. Remaining nav/footer work still gated on P0-T11/P0-T12 and Phase 8 motion.
 - **Phase 2:** **COMPLETED and committed** (`27a91ef`); only explicit sign-off on `DESIGN_SYSTEM.md` (P2-T6) is still open. Phase 1 accepted by owner.
-- **Implementation:** Next.js 16.4.6 / React 19.3 / Tailwind 4.3.3 / TypeScript. Dark editorial tokens live in `src/app/globals.css`; primitives in `src/components/ui/`; hero in `src/components/sections/hero.tsx`; header in `src/components/layout/site-header.tsx`. Home still carries a development preview below the hero — no organizational claims published.
+- **Implementation:** Next.js 16.4.6 / React 19.3 / Tailwind 4.3.3 / TypeScript. Dark editorial tokens in `src/app/globals.css`; primitives in `src/components/ui/`; public copy single-sourced in `src/content/site.ts` and `src/content/about.ts`; sections in `src/components/sections/`; routes `src/app/page.tsx` and `src/app/about/page.tsx`.
 - **Dev server:** Running at **http://localhost:3000**. Leave it running for owner review. Note: running `next build` while it is active can serve stale CSS until a source file is touched to force recompilation.
 - **Browser tab:** title exactly `TIMUN Sfax`; official colour logo on a fully transparent background at 512/64/32/16 px plus a 180 px Apple touch icon (TD-19). No tile, no `.ico`.
-- **Git:** Local repository with Phase 1/icon commits (`0bf41d3`, `1a5797c`, `eb47925`) and Phase 2 (`27a91ef`). Phase 3 files were uncommitted at the time of this handover — commit locally before closing the session. **No remote, no push** — deferred to Phase 10.
+- **Git:** Local repository with Phase 1/icon commits (`0bf41d3`, `1a5797c`, `eb47925`), Phase 2 (`27a91ef`), Phase 3 (`526ad6d`) and image-quality fix (`5c0541e`). Phase 4 files were uncommitted at the time of this handover — commit locally before closing the session. **No remote, no push** — deferred to Phase 10.
 - **Phase 0:** Continuous; the owner supplies approved content/assets incrementally.
 
 ## 2. Approved design decisions (locked 19 Nov 2026)
@@ -27,7 +28,14 @@
 - **Hero photo treatment (owner request, 19 Nov 2026):** full-bleed photo with a navy `mix-blend-color` cast (`bg-surface-2/45`) and `.hero-scrim` radial/linear overlay anchored bottom-left, modelled on the reference site but in navy/gold. The owner may request cast/scrim intensity changes — treat the current values as a starting point, not locked.
 - **Hero image source (TD-24):** hero now uses `public/images/hero/groupphoto2-upscaled.webp` — a deterministic 2× Lanczos upscale (2160×1240) of `groupphoto2.jpg` with subtle sharpening, because the original is only 1080×620. Rendered with `quality={95}` (Next.js 16 requires `images.qualities` allowlist in `next.config.ts`) and `preload` (v16 replacement for deprecated `priority`). Originals in `assets/` and `public/images/hero/groupphoto2.jpg` are untouched. AI super-resolution was requested but the image tool failed with `Invalid credential`; a higher-res original from the owner is the only route to genuine extra detail.
 
-## 3. What was completed in Sessions 04–05
+## 3. What was completed in Sessions 04–06
+
+**Session 06 (Phase 4):**
+1. Extracted the source `.docx`, drafted `docs/PHASE4_CONTENT_PROPOSAL.md`, and obtained owner approval for all documentation history plus delegation of mission/vision/values wording (closes P0-T6 and P0-T13).
+2. Created `src/content/site.ts` and `src/content/about.ts` — single source of approved public copy, including five timeline milestones.
+3. Built `principles.tsx` (stacked mission/vision/values rows, not three equal cards), `timeline.tsx` and `about-preview.tsx`.
+4. Replaced the Home development preview with approved content and created `/about` with four working anchors and separate national/Sfax sections.
+5. Added Home/About nav to `SiteHeader`; verified lint, typecheck, build and both live pages.
 
 **Session 05 (Phase 3):**
 1. Copied `assets/groupphoto2.jpg` to `public/images/hero/groupphoto2.jpg` (original preserved) and built `src/components/sections/hero.tsx` — full-viewport photo, navy colour cast + radial scrim, brand-name-only headline, factual metadata, one gold CTA, scroll cue.
@@ -46,24 +54,25 @@
 
 ## 4. Files created / modified
 
-**Created:** `docs/design-board.html`, `docs/motion-thesis.html`, `src/lib/cn.ts`, `src/components/ui/{container,section,section-heading,button,card,index}.tsx`; Session 05 added `src/components/sections/hero.tsx`, `src/components/layout/site-header.tsx`, `src/app/not-found.tsx`, `public/images/hero/groupphoto2.jpg`, `public/images/hero/groupphoto2-upscaled.webp`.
+**Created:** `docs/design-board.html`, `docs/motion-thesis.html`, `src/lib/cn.ts`, `src/components/ui/{container,section,section-heading,button,card,index}.tsx`; Session 05 added `src/components/sections/hero.tsx`, `src/components/layout/site-header.tsx`, `src/app/not-found.tsx`, `public/images/hero/groupphoto2.jpg`, `public/images/hero/groupphoto2-upscaled.webp`; Session 06 added `src/content/site.ts`, `src/content/about.ts`, `src/components/sections/{about-preview,principles,timeline}.tsx`, `src/app/about/page.tsx`, `docs/PHASE4_CONTENT_PROPOSAL.md`, `public/images/about/{groupphoto,groupphoto9}.jpg`.
 **Modified:** `src/app/globals.css`, `src/app/layout.tsx`, `src/app/page.tsx`, `docs/DESIGN_SYSTEM.md`, `docs/MASTER_ROADMAP.md`, `docs/TASK_TRACKER.md`, `docs/DEVELOPMENT_LOG.md`, `docs/SESSION_HANDOVER.md`, `docs/TECHNICAL_DECISIONS.md`, plus the two HTML previews.
 **Preserved:** `assets/` originals (including `assets/groupphoto2.jpg`), `TIMUN_Sfax_Website_Project_Documentation.docx` (gitignored), all five icon PNGs.
 
 ## 5. Remaining unfinished
 
 - Owner sign-off on `DESIGN_SYSTEM.md` (P2-T6).
-- Phase 3 remainder: desktop nav + active states (P3-T2), accessible mobile menu (P3-T3), footer (P3-T4, P0-T11/P0-T12), page transition wrapper (P3-T5, Phase 8), shared empty/loading states (P3-T6, content phases).
+- Phase 4 remainder: Home Executive Board preview (P4-T4) held on P0-T10 — no board data supplied.
+- Phase 3 remainder: nav active states (P3-T2), footer (P3-T4, P0-T11/P0-T12), page transition wrapper (P3-T5, Phase 8), shared empty/loading states (P3-T6, content phases).
 - Owner review of the new hero — cast/scrim intensity may be adjusted.
-- Phases 4–8, including every content-bearing page and all motion implementation.
-- Owner content package (P0-T6…T13) supplied incrementally as Phase 0 runs in parallel.
+- Phases 5–8: events, study guides, board/contact, and all motion implementation.
+- Owner content package: P0-T8, P0-T9, P0-T10, P0-T11, P0-T12 still outstanding.
 
 ## 6. Known bugs / blockers / issues
 
 | Item | Type | Detail |
 | --- | --- | --- |
 | Phase 2 not yet owner-reviewed | Blocker for Phase 3 | Status REVIEW REQUIRED; sign-off needed on `DESIGN_SYSTEM.md`. |
-| Missing approved content | Blocker (phases 4–7) | Owner supplies incrementally; never fabricate. |
+| Missing event / guide / board / partner / contact content | Blocker (phases 5–7, P4-T4, P3-T4) | Owner supplies incrementally; never fabricate. Phase 4 history + mission/vision/values now approved. |
 | Stale CSS after production build | Environment quirk | Running `next build` against the live dev server served old CSS; touching `globals.css` fixed it. Do not kill the dev server. |
 | Images not visually renderable by this model | Limitation | Layout/styles verified by computed values; owner should eyeball the page and icons. |
 | Dev server running | Intentional | Owner asked for live preview; do not kill it. |
@@ -75,10 +84,10 @@
 
 ## 8. Exact next action
 
-1. **Owner:** eyeball `http://localhost:3000` — confirm the hero vibe or request bluish-cast/scrim intensity changes.
-2. **Developer:** commit the Phase 3 shell + hero locally (`git add` / `git commit`), still no remote and no push.
-3. **Developer:** continue the remaining Phase 3 shell work once nav structure and P0-T11/P0-T12 data exist; keep all public copy content-safe.
-4. **Owner in parallel:** keep adding approved content/assets to `assets/`.
+1. **Owner:** eyeball `http://localhost:3000` and `/about` — confirm the layout and the new copy, including the mission/vision/values wording written under delegation.
+2. **Developer:** commit the Phase 4 work locally (`git add` / `git commit`), still no remote and no push.
+3. **Developer:** start Phase 5 structure only when event data/photos (P0-T8) arrive; never fabricate events.
+4. **Owner in parallel:** keep adding approved content/assets to `assets/`, especially board data (P0-T10) to unblock P4-T4 and the footer data (P0-T11/P0-T12).
 
 ## 9. Continuity reminder
 

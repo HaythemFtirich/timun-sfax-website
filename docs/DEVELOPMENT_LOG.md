@@ -4,6 +4,39 @@
 
 ---
 
+## Session 06 — 19 November 2026 — Phase 4: Home & About with approved copy
+
+**Goal:** build the first content-bearing phase using only owner-approved material.
+
+### Owner decisions received this session
+- All TIMUN and TIMUN Sfax historical information in the source documentation is **approved** (closes P0-T13).
+- Mission, vision and values wording was **delegated to the developer** — "do ur magic when it comes to content in vision mission and values" (closes P0-T6).
+- Full decision recorded in `docs/PHASE4_CONTENT_PROPOSAL.md` and TD-25.
+
+### Work done
+- Extracted the source `.docx` (538 paragraphs) and drafted a provenance-tracked copy proposal for approval before publishing anything.
+- Created `src/content/site.ts` and `src/content/about.ts` as the single source of public copy: national history, Sfax history, mission, vision, values, and five timeline milestones. Historical sentences are faithful renderings of documentation §2.1–2.2; the vision statement and value descriptions are original copy that add no facts, dates, names, figures or endorsements.
+- Added `src/components/sections/principles.tsx` — mission/vision/values as stacked editorial rows with hairline dividers, deliberately **not** three equal cards (a forbidden tell).
+- Added `src/components/sections/timeline.tsx` with the five approved milestones.
+- Added `src/components/sections/about-preview.tsx` — Home introduction, approved tagline (outside the hero), national TIMUN logo and network explanation, authentic photo.
+- Rewrote `src/app/page.tsx` to replace the development preview with real approved content.
+- Created `src/app/about/page.tsx` — unified page with four working anchors, clearly separate national/Sfax sections, principles, timeline and photography.
+- Updated `SiteHeader` with Home/About navigation; replaced deprecated `priority` with `preload`.
+- Copied `assets/groupphoto.jpg` and `assets/groupphoto9.jpg` into `public/images/about/` (originals untouched).
+- Updated all management docs; `PHASE4_CONTENT_PROPOSAL.md` now records approval rather than pending status.
+
+### Verification
+- `npm run lint`, `npm run typecheck`, `npm run build` → all exit 0; build lists nine static routes including `/about`.
+- Live Home: title `TIMUN Sfax`, nav Home/About, logical H1→H2→H3 ladder, approved tagline present, four images loaded.
+- Live `/about`: title `About | TIMUN Sfax`, all four anchor links resolve to existing IDs, approved facts present (`20 TIMUN clubs`, `2018`), no horizontal overflow, no console errors.
+- Touched `globals.css` after the build to avoid the known stale-CSS quirk.
+
+### Open items
+- P4-T4 Executive Board preview held on P0-T10 (no board data supplied).
+- Phase 5+ remain blocked on events, study guides, board data, partner and contact details.
+
+---
+
 ## Session 05 — 19 November 2026 — Phase 3: shared shell + `groupphoto2` hero
 
 **Owner request:** begin Phase 3 with a first screen like `https://enactustbs.com/?lang=en` — a full-bleed group photo with typography and a button over it, using the TIMUN Sfax logo and `groupphoto2`, made slightly bluish with an effect/overlay on top. Owner said "you do ur magic freely" and wants to watch live changes at `http://localhost:3000`.

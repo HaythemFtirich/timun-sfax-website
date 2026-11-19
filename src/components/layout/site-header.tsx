@@ -2,9 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui";
 
+const nav = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+];
+
 /**
- * Global header. Sits transparently over the full-viewport hero.
- * Scroll-reactive solid state is staged for Phase 8 with the motion gate.
+ * Global header. Sits transparently over the full-viewport hero on Home and
+ * over the navy field on inner pages. Scroll-reactive solid state is staged
+ * for Phase 8 with the motion gate.
  */
 export function SiteHeader() {
   return (
@@ -13,20 +19,29 @@ export function SiteHeader() {
         <Link
           href="/"
           aria-label="TIMUN Sfax — home"
-          className="inline-flex rounded-sm focus-visible:outline-offset-6"
+          className="inline-flex shrink-0 rounded-sm focus-visible:outline-offset-6"
         >
           <Image
             src="/images/branding/timun-sfax-logo-white.png"
             alt=""
             width={1257}
             height={1257}
-            priority
-            className="h-auto w-[clamp(7.5rem,14vw,11rem)] object-contain"
+            preload
+            className="h-auto w-[clamp(7rem,13vw,10rem)] object-contain"
           />
         </Link>
-        <p className="hidden font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-cream sm:block">
-          Model United Nations
-        </p>
+
+        <nav aria-label="Primary" className="flex items-center gap-6 sm:gap-10">
+          {nav.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="border-b border-transparent pb-1 font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-cream transition-colors duration-[var(--duration-fast)] hover:border-gold hover:text-gold-bright"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
       </Container>
     </header>
   );

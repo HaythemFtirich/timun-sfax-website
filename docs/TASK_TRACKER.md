@@ -2,7 +2,7 @@
 
 > **Legend:** `[ ]` Not started · `[x]` Completed · `[!]` Blocked / requires attention (see notes)
 > **Companion:** `MASTER_ROADMAP.md` (phase objectives and acceptance criteria), `SESSION_HANDOVER.md` (continuity).
-> **Last updated:** 19 November 2026 — Session 05 (Phase 3 shell + hero pulled forward).
+> **Last updated:** 19 November 2026 — Session 06 (Phase 4 Home + About with approved copy).
 
 > **Rule:** A task is `[x]` only after its verification step has actually been performed and recorded. Owner-supplied content tasks remain `[!]` until the verified item is received — never simulate them with fabricated data.
 
@@ -22,9 +22,9 @@
   - *Verification:* Node v26.13.0, npm 11.20.0, npx 11.20.0, Git 2.53.0.windows.1.
 - [x] **P0-T5** Derive candidate palette values from logo pixels (non-authoritative).
   - *Verification:* TIMUN Sfax logo ≈ `#607384`; national logo ≈ `#3E6589`, `#226BB4`, `#C1DFE8`; white variant `#FFFFFF`. Recorded as **candidates only** in `DESIGN_SYSTEM.md`.
-- [ ] **P0-T6** Owner: supply/approve final English copy (About, mission, vision, values).
-  - *Dependency of:* P4-T1…T3, P4-T8. *Verification:* written approval recorded in `TECHNICAL_DECISIONS.md`.
-  - *Notes:* French source material exists in the documentation; final approved English wording required.
+- [x] **P0-T6** Owner: supply/approve final English copy (About, mission, vision, values).
+  - *Dependency of:* P4-T1…T3, P4-T8. *Verification:* owner approved all documentation history and delegated mission/vision/values wording on 19 Nov 2026; recorded in `PHASE4_CONTENT_PROPOSAL.md` and TD-25.
+  - *Notes:* English copy single-sourced in `src/content/site.ts` and `src/content/about.ts`; historical claims faithful to documentation §2.1–2.2.
 - [x] **P0-T7** Owner: approve or reject proposed tagline.
   - *Dependency of:* P4-T1. *Verification:* owner chose **`Diplomacy. Leadership. Negotiation.`** on 19 Nov 2026 after a clarification question with suggested options; recorded in `DESIGN_SYSTEM.md` §12 and TD-22. Hero headline remains brand name only.
 - [!] **P0-T8** Owner: supply verified event data + selected photographs.
@@ -37,8 +37,9 @@
   - *Dependency of:* P3-T4 (footer grid), P4 (homepage grid). *Verification:* assets load and names correct.
 - [!] **P0-T12** Owner: supply contact details, social URLs, Google Forms URL, copyright wording.
   - *Dependency of:* P3-T4, P7-T3…T5. *Verification:* all links opened and confirmed.
-- [!] **P0-T13** Owner: verify historical claims (dates, current club count, patronage, report).
-  - *Dependency of:* P4-T6…T8. *Verification:* each claim checked off in an approval note.
+- [x] **P0-T13** Owner: verify historical claims (dates, current club count, patronage, report).
+  - *Dependency of:* P4-T6…T8. *Verification:* owner confirmed "whats written in the documentation from infos about timun history annd timun sfax is all approved" on 19 Nov 2026; recorded in `PHASE4_CONTENT_PROPOSAL.md` and TD-25.
+  - *Notes:* covers 2009 founding, April 2010 first conference, 2012 expansion, 20 clubs, High Patronage since 2015, final report to government, and the 2018 Sfax dates.
 - [x] **P0-T14** Create Markdown documentation management structure.
   - *Verification:* `docs/` contains 9 management files + top-level `README.md`.
 
@@ -114,22 +115,25 @@
 
 ## Phase 4 — Home & About
 
-- [ ] **P4-T1** Home hero (photo, dark-blue overlay, headline, intro, "Discover TIMUN Sfax" CTA).
-  - *Dependencies:* P3, P0-T6, P0-T7. *Verification:* LCP image prioritized; overlay contrast passes.
-- [ ] **P4-T2** Home About preview + national affiliation explanation.
-  - *Dependencies:* P0-T6. *Verification:* copy matches approved source.
-- [ ] **P4-T3** Home mission/vision/values blocks.
-  - *Dependencies:* P0-T6. *Verification:* approved wording only.
-- [ ] **P4-T4** Home Executive Board preview (structure only until verified data).
+> Owner approval 19 Nov 2026: all documentation history approved, and mission/vision/values wording delegated to the developer. See `PHASE4_CONTENT_PROPOSAL.md` and TD-25.
+
+- [x] **P4-T1** Home hero (photo, dark-blue overlay, headline, intro, "Discover TIMUN Sfax" CTA).
+  - *Dependencies:* P3, P0-T6, P0-T7. *Verification:* hero delivered Phase 3; LCP `preload`, q95, upscaled source, scrim active; approved intro copy now on the page (Session 06).
+- [x] **P4-T2** Home About preview + national affiliation explanation.
+  - *Dependencies:* P0-T6. *Verification:* `src/components/sections/about-preview.tsx` renders approved §2.2 copy and national logo/network explanation; checked live.
+- [x] **P4-T3** Home mission/vision/values blocks.
+  - *Dependencies:* P0-T6. *Verification:* `principles.tsx` renders all three as stacked editorial rows (no three-equal-card tell); copy single-sourced in `src/content/about.ts`.
+- [!] **P4-T4** Home Executive Board preview (structure only until verified data).
   - *Dependencies:* P0-T10 for final content. *Verification:* no invented members published.
-- [ ] **P4-T5** About anchor/section navigation.
-  - *Dependencies:* P3. *Verification:* anchors work; keyboard accessible.
-- [ ] **P4-T6** About national TIMUN + TIMUN Sfax sections kept separate.
-  - *Dependencies:* P0-T13. *Verification:* verified claims only.
-- [ ] **P4-T7** About timeline, storytelling blocks, photography.
-  - *Dependencies:* P0-T6, assets. *Verification:* authentic images with alt text.
-- [ ] **P4-T8** Proofread all Home/About copy.
-  - *Dependencies:* P4-T1…T7. *Verification:* owner-approved source comparison.
+  - *Notes:* held deliberately — no board names/portraits supplied, so no preview section was published.
+- [x] **P4-T5** About anchor/section navigation.
+  - *Dependencies:* P3. *Verification:* four anchors in `src/app/about/page.tsx`; all four target IDs confirmed present in the live DOM.
+- [x] **P4-T6** About national TIMUN + TIMUN Sfax sections kept separate.
+  - *Dependencies:* P0-T13. *Verification:* separate `#national` and `#sfax` sections; approved claims only.
+- [x] **P4-T7** About timeline, storytelling blocks, photography.
+  - *Dependencies:* P0-T6, assets. *Verification:* five approved milestones in `timeline.tsx`; authentic group photos with alt text; no horizontal overflow.
+- [x] **P4-T8** Proofread all Home/About copy.
+  - *Dependencies:* P4-T1…T7. *Verification:* every historical claim traced to documentation §2.1–2.2; vision/value copy original under owner delegation; lint, typecheck, build all exit 0.
 
 ---
 

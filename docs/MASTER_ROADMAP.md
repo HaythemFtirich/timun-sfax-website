@@ -166,17 +166,18 @@
 
 - **Objective:** A cinematic homepage and a unified About page using approved content and authentic photography.
 - **Dependencies:** Phase 3; P0-T6, P0-T7, P0-T13; board preview depends on P0-T10 (structure only until data is verified).
-- **Current status:** BLOCKED — approved English copy, tagline decision, and verified history not yet supplied.
+- **Current status:** IN PROGRESS — Home and About built with approved copy; board preview held on P0-T10.
+- **Owner approval (19 Nov 2026):** all TIMUN/TIMUN Sfax history in the source documentation is approved (closes P0-T13); the owner delegated mission, vision and values wording to the developer (closes P0-T6). See `PHASE4_CONTENT_PROPOSAL.md`.
 
 ### Tasks
-- **P4-T1** Home: hero with large photo, dark-blue overlay, headline, intro, "Discover TIMUN Sfax" CTA. — **photo/treatment delivered early in Phase 3** at owner request (see above); intro/description copy still awaits P0-T6.
-- **P4-T2** Home: About preview + national affiliation explanation.
-- **P4-T3** Home: mission/vision/values blocks (approved wording only).
-- **P4-T4** Home: Executive Board preview (structure only; real verified members when supplied).
-- **P4-T5** About: anchor/section navigation.
-- **P4-T6** About: national TIMUN section and TIMUN Sfax section kept clearly separate.
-- **P4-T7** About: timeline, storytelling blocks, photography.
-- **P4-T8** Content proofread against approved source.
+- **P4-T1** Home: hero with large photo, dark-blue overlay, headline, intro, "Discover TIMUN Sfax" CTA. — **DONE**: full-viewport hero delivered in Phase 3; approved intro/about copy now on the page.
+- **P4-T2** Home: About preview + national affiliation explanation. — **DONE**.
+- **P4-T3** Home: mission/vision/values blocks (approved wording only). — **DONE**: stacked editorial rows, not three equal cards.
+- **P4-T4** Home: Executive Board preview (structure only; real verified members when supplied). — **HELD**: no board data supplied (P0-T10); no invented members published.
+- **P4-T5** About: anchor/section navigation. — **DONE**.
+- **P4-T6** About: national TIMUN section and TIMUN Sfax section kept clearly separate. — **DONE**.
+- **P4-T7** About: timeline, storytelling blocks, photography. — **DONE** with five approved milestones and authentic group photography.
+- **P4-T8** Content proofread against approved source. — **DONE**: every historical claim traced to documentation §2.1–2.2; vision/value copy is original under owner delegation.
 
 ### Expected deliverables
 - `/` and `/about` pages with approved content.

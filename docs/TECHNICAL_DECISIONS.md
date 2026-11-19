@@ -214,6 +214,15 @@
 - **Reason:** Removes a second generation of lossy compression and gives the browser a larger source for its 1920w/2048w `srcset` candidates on big screens, without inventing or altering photo content.
 - **Consequences:** Lanczos + sharpening does **not** create real detail — it renders more cleanly than browser scaling but cannot match a true high-resolution original. If the owner supplies a larger authentic photo, replace `groupphoto2-upscaled.webp`. The q95 allowlist applies site-wide; other images can opt into higher quality explicitly. Pillow was used as a one-off local build tool only — it is not a project or runtime dependency and the 0 TND constraint is unaffected.
 
+## TD-25 — Phase 4 content approval and copy delegation
+
+- **Status:** APPROVED (owner, 19 Nov 2026).
+- **Problem:** Phase 4 is the first content-bearing phase; P0-T6 (approved English copy) and P0-T13 (verified historical claims) had to be closed before publishing anything.
+- **Owner decision:** all TIMUN and TIMUN Sfax history in `TIMUN_Sfax_Website_Project_Documentation.docx` is approved for publication. The owner explicitly delegated mission, vision and values wording: "i want you to do ur magic when it comes to content in vision mission and values."
+- **Selected:** Draft a provenance-tracked proposal (`docs/PHASE4_CONTENT_PROPOSAL.md`) first, obtain approval, then publish. Historical sentences are faithful English renderings of documentation §2.1–2.2. Mission is a faithful compilation of the six supplied objectives. Vision and the six value descriptions are original copy written under delegation, adding no facts, dates, names, figures or endorsements.
+- **Reason:** Respects the no-invented-content rule while unblocking the phase; keeps every public claim traceable to either owner-supplied source material or explicit owner delegation.
+- **Consequences:** P0-T6 and P0-T13 are complete. All Phase 4 copy is single-sourced in `src/content/site.ts` and `src/content/about.ts` — edit there, not in components. Any future claim not in those modules must be approved before publication. The Board preview (P4-T4) is still held on P0-T10. Recorded in `PHASE4_CONTENT_PROPOSAL.md`.
+
 ---
 
 ## Approval log
@@ -237,3 +246,4 @@
 | TD-22 | Tagline + brand-only hero | Approved by owner | 19 Nov 2026 |
 | TD-23 | `groupphoto2` hero + navy cast/scrim | Implemented at owner request; intensity under review | 19 Nov 2026 |
 | TD-24 | Hero image quality + 2× local upscale | Owner chose AI upscale; tool credential failed, faithful local upscale used | 19 Nov 2026 |
+| TD-25 | Phase 4 history approval + copy delegation | Approved by owner; mission/vision/values delegated | 19 Nov 2026 |
