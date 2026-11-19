@@ -8,7 +8,7 @@
    progressive enhancement introduced in Phase 8. Motion values live here as
    documentation for the Phase 8 implementation. Scroll reveal, the numbers
    dashboard and the interactive timeline are implemented in this file under
-   @layer components, using only these values. Owner-facing notes: 2026-11-19 (v16).
+   @layer components, using only these values. Owner-facing notes: 2026-11-19 (v17).
    --------------------------------------------------------------------------- */
 :root {
   /* Palette — approved. Warm gold replaces the failed blue accent. */

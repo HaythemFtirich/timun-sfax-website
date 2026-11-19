@@ -23,7 +23,7 @@ function PanelRule() {
  */
 export function Principles() {
   const statements = [
-    { ...mission, image: "/images/about/groupphoto4.jpg", wide: true },
+    { ...mission, image: "/images/about/groupphoto5.jpg", wide: true },
     { ...vision, image: "/images/about/groupphoto7.jpg", wide: false },
   ];
 

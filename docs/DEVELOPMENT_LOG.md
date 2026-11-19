@@ -338,6 +338,14 @@ Removed `data-reveal` from the interactive year box so it is always fully visibl
 
 ---
 
+## Session 12 — 19 November 2026 — Mission photo swap
+
+- Owner requested `groupphoto5.jpg` instead of `groupphoto4.jpg` in the Mission panel; Vision stays `groupphoto7.jpg`.
+- Copied the authentic original from `assets/groupphoto5.jpg` to `public/images/about/groupphoto5.jpg`, updated `src/components/sections/principles.tsx` and removed the now-unused `public/images/about/groupphoto4.jpg`.
+- `lint`, `typecheck`, `build` pass; fresh tab confirmed Mission loads `groupphoto5.jpg`, Vision loads `groupphoto7.jpg`, no console warnings.
+
+---
+
 ## Entry template for future sessions
 
 ```
