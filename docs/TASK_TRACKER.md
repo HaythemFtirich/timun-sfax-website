@@ -2,7 +2,7 @@
 
 > **Legend:** `[ ]` Not started · `[x]` Completed · `[!]` Blocked / requires attention (see notes)
 > **Companion:** `MASTER_ROADMAP.md` (phase objectives and acceptance criteria), `SESSION_HANDOVER.md` (continuity).
-> **Last updated:** 19 November 2026 — Session 06 (Phase 4 Home + About with approved copy).
+> **Last updated:** 19 November 2026 — Session 07 (interactive timeline, numbers dashboard, animated dashboard and photographs).
 
 > **Rule:** A task is `[x]` only after its verification step has actually been performed and recorded. Owner-supplied content tasks remain `[!]` until the verified item is received — never simulate them with fabricated data.
 
@@ -188,20 +188,21 @@
 
 ## Phase 8 — Motion & Polish
 
-- [ ] **P8-T1** Image mask/reveal, line-by-line text, fade/slide motion primitives.
-  - *Dependencies:* P4–P7 structure. *Verification:* purposeful, short timelines.
+- [x] **P8-T1** Image mask/reveal, line-by-line text, fade/slide motion primitives.
+  - *Dependencies:* P4 structure. *Verification:* one `IntersectionObserver` in `src/components/motion/scroll-reveal.tsx`; 720ms reveal / 70ms stagger; per-digit rise; verified live on both routes (Session 07).
 - [ ] **P8-T2** Selective GSAP/ScrollTrigger sequences (parallax, pinned).
-  - *Dependencies:* P8-T1. *Verification:* only justified uses; no scroll hijacking.
-- [ ] **P8-T3** Page transitions and hover states (zoom, borders, restrained glow).
+  - *Dependencies:* P8-T1. *Verification:* only justified uses; no scroll hijacking. *Notes:* no library installed; native CSS/observer used instead.
+- [!] **P8-T3** Page transitions and hover states (zoom, animated borders, restrained glow).
   - *Dependencies:* P8-T1. *Verification:* consistent across components.
+  - *Notes:* Session 07 delivered hover states (1.02→1.08 photo push-in, hairline draw, stat-tile colour change). Page transitions still deferred; "restrained glow" is a design-system tell and was not implemented (see TD-26).
 - [ ] **P8-T4** Gallery polish and slideshow transitions.
   - *Dependencies:* P5-T4. *Verification:* keyboard/reduced-motion support retained.
 - [ ] **P8-T5** Optional short logo intro (skippable, non-blocking).
   - *Dependencies:* owner approval. *Verification:* content accessible immediately.
 - [ ] **P8-T6** Optional custom cursor (pointer devices only).
   - *Dependencies:* owner approval. *Verification:* disabled on touch; focus state intact.
-- [ ] **P8-T7** Reduced-motion handling and mobile adaptation.
-  - *Dependencies:* P8-T1…T6. *Verification:* OS reduced-motion setting honored everywhere.
+- [x] **P8-T7** Reduced-motion handling and mobile adaptation.
+  - *Dependencies:* P8-T1. *Verification:* `prefers-reduced-motion` and `html[data-motion="static"]` land every reveal in its finished state; `<noscript>` style keeps content visible without JavaScript; no horizontal overflow on either route (Session 07).
 
 ---
 

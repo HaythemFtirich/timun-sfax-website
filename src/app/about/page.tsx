@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { InteractiveTimeline } from "@/components/sections/interactive-timeline";
+import { NumbersDashboard } from "@/components/sections/numbers-dashboard";
 import { Principles } from "@/components/sections/principles";
-import { Timeline } from "@/components/sections/timeline";
-import { Section } from "@/components/ui";
+import { AnimatedFigure, Section } from "@/components/ui";
 import { nationalTimun, sfaxHistory } from "@/content/about";
 import { site } from "@/content/site";
 
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 const anchors = [
   { href: "#national", label: "National TIMUN" },
   { href: "#sfax", label: "TIMUN Sfax" },
+  { href: "#numbers", label: "In numbers" },
   { href: "#principles", label: "Mission & values" },
   { href: "#timeline", label: "Timeline" },
 ];
@@ -23,7 +25,7 @@ const anchors = [
 export default function AboutPage() {
   return (
     <main id="main" className="flex-1">
-      <Section className="border-b border-line pb-16 pt-40 sm:pt-48">
+      <Section className="border-b border-line pb-16 pt-40 sm:pt-48" data-reveal>
         <p className="font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-gold">
           About
         </p>
@@ -52,7 +54,10 @@ export default function AboutPage() {
       </Section>
 
       <Section id="national" className="border-b border-line scroll-mt-24">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] lg:gap-20">
+        <div
+          className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] lg:gap-20"
+          data-reveal
+        >
           <div>
             <Image
               src="/images/branding/timun-national-logo.png"
@@ -82,7 +87,10 @@ export default function AboutPage() {
       </Section>
 
       <Section id="sfax" className="border-b border-line scroll-mt-24">
-        <div className="grid gap-14 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-20">
+        <div
+          className="grid gap-14 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-20"
+          data-reveal
+        >
           <div>
             <p className="font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-gold">
               {sfaxHistory.eyebrow}
@@ -100,29 +108,19 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <figure>
-            <div className="relative aspect-[3/4] overflow-hidden rounded-[var(--radius-md)] border border-line bg-surface">
-              <Image
-                src="/images/about/groupphoto9.jpg"
-                alt="TIMUN Sfax group photograph"
-                fill
-                sizes="(max-width: 1024px) 100vw, 34vw"
-                className="object-cover object-center"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-surface-2/35 mix-blend-color"
-              />
-            </div>
-            <figcaption className="mt-4 font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-muted">
-              {site.name}
-            </figcaption>
-          </figure>
+          <AnimatedFigure
+            src="/images/about/groupphoto9.jpg"
+            alt="TIMUN Sfax group photograph"
+            sizes="(max-width: 1024px) 100vw, 34vw"
+            caption={site.name}
+            aspect="aspect-[3/4]"
+          />
         </div>
       </Section>
 
+      <NumbersDashboard />
       <Principles />
-      <Timeline />
+      <InteractiveTimeline />
 
       <Section className="border-t border-line">
         <p className="font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-gold">

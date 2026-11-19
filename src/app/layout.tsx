@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { SiteHeader } from "@/components/layout/site-header";
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import "./globals.css";
 
 // Approved pairing (Phase 2): Plus Jakarta Sans for display, Inter for body.
@@ -52,8 +53,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <SiteHeader />
         {children}
+        <ScrollReveal />
       </body>
     </html>
   );

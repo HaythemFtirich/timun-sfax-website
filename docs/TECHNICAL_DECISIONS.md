@@ -223,6 +223,16 @@
 - **Reason:** Respects the no-invented-content rule while unblocking the phase; keeps every public claim traceable to either owner-supplied source material or explicit owner delegation.
 - **Consequences:** P0-T6 and P0-T13 are complete. All Phase 4 copy is single-sourced in `src/content/site.ts` and `src/content/about.ts` — edit there, not in components. Any future claim not in those modules must be approved before publication. The Board preview (P4-T4) is still held on P0-T10. Recorded in `PHASE4_CONTENT_PROPOSAL.md`.
 
+## TD-26 — Interactive timeline, numbers-first dashboard and native motion
+
+- **Status:** IMPLEMENTED (owner request, 19 Nov 2026); derived from the approved TD-21 library-free thesis.
+- **Problem:** the owner asked for an interactive timeline that also lives on the Home page, a decorated animated mission/vision/values dashboard, hover-animated photographs, and a "showcase TIMUN in numbers not bring texts" treatment — using the supplied skills for inspiration.
+- **Selected:** a focused interaction thesis (`docs/INTERACTION_THESIS.md`) written before code; one `IntersectionObserver`; CSS-only reveals at 720ms / 70ms stagger; per-digit rise for figures; 180ms hover transitions; 1.02→1.08 photo push-in; static fallbacks for reduced motion, `data-motion="static"` and `<noscript>`.
+- **Reason:** TD-21 forbids an animation dependency without owner approval, and the design system forbids glow, numbered eyebrows, three equal cards and invented statistics. Native CSS/observer satisfies the request within those constraints.
+- **Content rule:** the only figures displayed are the six owner-approved facts in `src/content/numbers.ts`: 2009, April 2010, 2012, 20 clubs, 2015, 2018. No new count, percentage, ratio or endorsement was invented. Labels are shortened forms of the approved history text.
+- **Inspiration:** Awwwards nominee *Dorot — The Jewish Timeline* supplied the "one large active year + compact selectable rail" interaction pattern only; no code, copy or layout was copied. Web search was unavailable (HTTP 503) during research.
+- **Consequences:** the interactive timeline is shared by Home and `/about`; the static `timeline.tsx` was removed. Page transitions, parallax and the optional intro/cursor remain deferred. Hover states are implemented across stat tiles, panels, photographs and the timeline rail. No dependency was installed, so the 0 TND constraint is untouched.
+
 ---
 
 ## Approval log
@@ -247,3 +257,4 @@
 | TD-23 | `groupphoto2` hero + navy cast/scrim | Implemented at owner request; intensity under review | 19 Nov 2026 |
 | TD-24 | Hero image quality + 2× local upscale | Owner chose AI upscale; tool credential failed, faithful local upscale used | 19 Nov 2026 |
 | TD-25 | Phase 4 history approval + copy delegation | Approved by owner; mission/vision/values delegated | 19 Nov 2026 |
+| TD-26 | Timeline + numbers dashboard + native motion | Owner request; built under TD-21 library-free thesis | 19 Nov 2026 |

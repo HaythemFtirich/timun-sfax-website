@@ -1,13 +1,13 @@
 # TIMUN Sfax Website — Session Handover
 
 > **Purpose:** Continuity between sessions. Read this together with `MASTER_ROADMAP.md` and `TASK_TRACKER.md` at the start of every session, then inspect the actual code/files before making changes.
-> **Last updated:** 19 November 2026 — Session 06 (Phase 4 Home + About with approved copy).
+> **Last updated:** 19 November 2026 — Session 07 (interactive timeline, numbers dashboard, animated dashboard and photographs).
 
 ---
 
 ## 1. Current project status
 
-- **Phase:** Phase 4 — Home & About, **IN PROGRESS**. Home and `/about` are built with approved copy and verified live; the Board preview is held on P0-T10.
+- **Phase:** Phase 8 motion pulled forward, **IN PROGRESS**. Session 07 added the interactive timeline, numbers dashboard, animated mission/vision/values dashboard and animated photographs to **both Home and `/about`**. Phase 4 is otherwise complete; the Board preview is held on P0-T10.
 - **Phase 3:** implemented (hero, transparent logo header, skip link, 404, Home/About nav); committed in `526ad6d` and `5c0541e`. Remaining nav/footer work still gated on P0-T11/P0-T12 and Phase 8 motion.
 - **Phase 2:** **COMPLETED and committed** (`27a91ef`); only explicit sign-off on `DESIGN_SYSTEM.md` (P2-T6) is still open. Phase 1 accepted by owner.
 - **Implementation:** Next.js 16.4.6 / React 19.3 / Tailwind 4.3.3 / TypeScript. Dark editorial tokens in `src/app/globals.css`; primitives in `src/components/ui/`; public copy single-sourced in `src/content/site.ts` and `src/content/about.ts`; sections in `src/components/sections/`; routes `src/app/page.tsx` and `src/app/about/page.tsx`.
@@ -28,7 +28,14 @@
 - **Hero photo treatment (owner request, 19 Nov 2026):** full-bleed photo with a navy `mix-blend-color` cast (`bg-surface-2/45`) and `.hero-scrim` radial/linear overlay anchored bottom-left, modelled on the reference site but in navy/gold. The owner may request cast/scrim intensity changes — treat the current values as a starting point, not locked.
 - **Hero image source (TD-24):** hero now uses `public/images/hero/groupphoto2-upscaled.webp` — a deterministic 2× Lanczos upscale (2160×1240) of `groupphoto2.jpg` with subtle sharpening, because the original is only 1080×620. Rendered with `quality={95}` (Next.js 16 requires `images.qualities` allowlist in `next.config.ts`) and `preload` (v16 replacement for deprecated `priority`). Originals in `assets/` and `public/images/hero/groupphoto2.jpg` are untouched. AI super-resolution was requested but the image tool failed with `Invalid credential`; a higher-res original from the owner is the only route to genuine extra detail.
 
-## 3. What was completed in Sessions 04–06
+## 3. What was completed in Sessions 04–07
+
+**Session 07 (motion pull-forward):**
+1. Wrote `docs/INTERACTION_THESIS.md` before code, derived from the approved motion thesis; no library installed. Researched Awwwards (Dorot timeline) after web search returned HTTP 503.
+2. Added `src/content/numbers.ts` — six approved figures only.
+3. Added one `IntersectionObserver` reveal system (`src/components/motion/scroll-reveal.tsx`) with reduced-motion, static and `<noscript>` fallbacks.
+4. Built `numbers-dashboard.tsx` (interactive, numbers-first), `interactive-timeline.tsx` (shared Home + `/about`), reworked `principles.tsx` into an asymmetric animated dashboard, and added `animated-figure.tsx` for hover-animated authentic photos.
+5. Verified lint, typecheck, build and live interactions on both routes; no console errors in a fresh tab.
 
 **Session 06 (Phase 4):**
 1. Extracted the source `.docx`, drafted `docs/PHASE4_CONTENT_PROPOSAL.md`, and obtained owner approval for all documentation history plus delegation of mission/vision/values wording (closes P0-T6 and P0-T13).
@@ -54,7 +61,7 @@
 
 ## 4. Files created / modified
 
-**Created:** `docs/design-board.html`, `docs/motion-thesis.html`, `src/lib/cn.ts`, `src/components/ui/{container,section,section-heading,button,card,index}.tsx`; Session 05 added `src/components/sections/hero.tsx`, `src/components/layout/site-header.tsx`, `src/app/not-found.tsx`, `public/images/hero/groupphoto2.jpg`, `public/images/hero/groupphoto2-upscaled.webp`; Session 06 added `src/content/site.ts`, `src/content/about.ts`, `src/components/sections/{about-preview,principles,timeline}.tsx`, `src/app/about/page.tsx`, `docs/PHASE4_CONTENT_PROPOSAL.md`, `public/images/about/{groupphoto,groupphoto9}.jpg`.
+**Created:** `docs/design-board.html`, `docs/motion-thesis.html`, `src/lib/cn.ts`, `src/components/ui/{container,section,section-heading,button,card,index}.tsx`; Session 05 added `src/components/sections/hero.tsx`, `src/components/layout/site-header.tsx`, `src/app/not-found.tsx`, `public/images/hero/groupphoto2.jpg`, `public/images/hero/groupphoto2-upscaled.webp`; Session 06 added `src/content/site.ts`, `src/content/about.ts`, `src/components/sections/{about-preview,principles,timeline}.tsx`, `src/app/about/page.tsx`, `docs/PHASE4_CONTENT_PROPOSAL.md`, `public/images/about/{groupphoto,groupphoto9}.jpg`; Session 07 added `src/content/numbers.ts`, `src/components/motion/scroll-reveal.tsx`, `src/components/sections/{numbers-dashboard,interactive-timeline}.tsx`, `src/components/ui/animated-figure.tsx`, `docs/INTERACTION_THESIS.md` and removed the static `src/components/sections/timeline.tsx`.
 **Modified:** `src/app/globals.css`, `src/app/layout.tsx`, `src/app/page.tsx`, `docs/DESIGN_SYSTEM.md`, `docs/MASTER_ROADMAP.md`, `docs/TASK_TRACKER.md`, `docs/DEVELOPMENT_LOG.md`, `docs/SESSION_HANDOVER.md`, `docs/TECHNICAL_DECISIONS.md`, plus the two HTML previews.
 **Preserved:** `assets/` originals (including `assets/groupphoto2.jpg`), `TIMUN_Sfax_Website_Project_Documentation.docx` (gitignored), all five icon PNGs.
 
@@ -62,7 +69,8 @@
 
 - Owner sign-off on `DESIGN_SYSTEM.md` (P2-T6).
 - Phase 4 remainder: Home Executive Board preview (P4-T4) held on P0-T10 — no board data supplied.
-- Phase 3 remainder: nav active states (P3-T2), footer (P3-T4, P0-T11/P0-T12), page transition wrapper (P3-T5, Phase 8), shared empty/loading states (P3-T6, content phases).
+- Phase 3 remainder: nav active states (P3-T2), footer (P3-T4, P0-T11/P0-T12), page transition wrapper (P3-T5, still deferred), shared empty/loading states (P3-T6, content phases).
+- Phase 8 remainder: parallax/pinned sequences, page transitions, gallery polish, optional logo intro and custom cursor (all still deferred; no library installed).
 - Owner review of the new hero — cast/scrim intensity may be adjusted.
 - Phases 5–8: events, study guides, board/contact, and all motion implementation.
 - Owner content package: P0-T8, P0-T9, P0-T10, P0-T11, P0-T12 still outstanding.
@@ -84,7 +92,8 @@
 
 ## 8. Exact next action
 
-1. **Owner:** eyeball `http://localhost:3000` and `/about` — confirm the layout and the new copy, including the mission/vision/values wording written under delegation.
+0. **Owner:** eyeball `http://localhost:3000` — scroll to **TIMUN in numbers**, the **mission/vision/values dashboard** and the **interactive timeline**; click a number tile and a timeline year. Same sections are on `/about`. Previews were also placed in the Review pane.
+1. **Owner:** confirm the motion intensity and whether the numbers dashboard reads as "showcase in numbers" rather than text.
 2. **Developer:** commit the Phase 4 work locally (`git add` / `git commit`), still no remote and no push.
 3. **Developer:** start Phase 5 structure only when event data/photos (P0-T8) arrive; never fabricate events.
 4. **Owner in parallel:** keep adding approved content/assets to `assets/`, especially board data (P0-T10) to unblock P4-T4 and the footer data (P0-T11/P0-T12).

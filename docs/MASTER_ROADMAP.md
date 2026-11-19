@@ -265,12 +265,12 @@
 
 - **Objective:** Purposeful cinematic motion and responsive refinement across the built pages.
 - **Dependencies:** Phases 4–7 structure stable.
-- **Current status:** NOT STARTED.
+- **Current status:** IN PROGRESS — owner requested the interactive timeline, numbers dashboard and animated mission/vision/values early (Session 07). Built with native CSS + one `IntersectionObserver`; no library installed. See `INTERACTION_THESIS.md` and TD-26.
 
 ### Tasks
-- **P8-T1** Motion primitives: image mask/reveal, line-by-line text reveals, fade/slide.
-- **P8-T2** Select only justified GSAP/ScrollTrigger sequences (parallax, pinned sections).
-- **P8-T3** Page transitions and hover states (zoom, animated borders, restrained blue glow).
+- **P8-T1** Motion primitives: image mask/reveal, line-by-line text reveals, fade/slide. — **DONE** for scroll reveal, per-digit rise and photo hover.
+- **P8-T2** Select only justified GSAP/ScrollTrigger sequences (parallax, pinned sections). — **NOT DONE**; native APIs used, no library added.
+- **P8-T3** Page transitions and hover states (zoom, animated borders, restrained blue glow). — **PARTIAL**: hover states delivered; page transitions deferred. "Glow" is a forbidden tell and was deliberately not built.
 - **P8-T4** Gallery polish and slideshow transitions.
 - **P8-T5** Optional short cinematic logo intro — skippable, non-blocking.
 - **P8-T6** Optional custom cursor — pointer devices only, never replacing visible pointer/focus.

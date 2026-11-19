@@ -6,7 +6,9 @@
    Values are single-sourced here; Tailwind utilities are generated from them
    through @theme inline below. No animation is applied globally — motion is
    progressive enhancement introduced in Phase 8. Motion values live here as
-   documentation for the Phase 8 implementation.
+   documentation for the Phase 8 implementation. Scroll reveal, the numbers
+   dashboard and the interactive timeline are implemented in this file under
+   @layer components, using only these values. Owner-facing notes: 2026-11-19.
    --------------------------------------------------------------------------- */
 :root {
   /* Palette — approved. Warm gold replaces the failed blue accent. */
@@ -131,6 +133,64 @@
         rgba(7, 21, 34, 0.52) 100%
       );
   }
+
+  /* One-shot scroll reveal. A <noscript> override in the layout keeps the
+     content visible when JavaScript is unavailable. */
+  [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+    transition:
+      opacity var(--duration-reveal) var(--ease),
+      transform var(--duration-reveal) var(--ease);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* Per-digit rise for the six approved figures. */
+  .figure-roll {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+
+  .figure-roll-inner {
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .figure-digit {
+    display: inline-block;
+    opacity: 0;
+    transform: translate3d(0, 105%, 0);
+    transition:
+      opacity var(--duration-reveal) var(--ease),
+      transform var(--duration-reveal) var(--ease);
+    transition-delay: calc(var(--digit-index, 0) * var(--step-reveal));
+  }
+
+  .is-visible .figure-digit {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes year-swap {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.year-swap {
+  animation: year-swap var(--duration-reveal) var(--ease) both;
 }
 
 /* ---------------------------------------------------------------------------

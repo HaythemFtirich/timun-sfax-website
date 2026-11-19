@@ -1,6 +1,8 @@
 import { AboutPreview } from "@/components/sections/about-preview";
-import { Hero } from "@/components/sections/hero";
+import { InteractiveTimeline } from "@/components/sections/interactive-timeline";
+import { NumbersDashboard } from "@/components/sections/numbers-dashboard";
 import { Principles } from "@/components/sections/principles";
+import { Hero } from "@/components/sections/hero";
 import { ButtonLink, Section, SectionHeading } from "@/components/ui";
 
 export default function Home() {
@@ -8,7 +10,9 @@ export default function Home() {
     <main id="main" className="flex-1">
       <Hero />
       <AboutPreview />
+      <NumbersDashboard />
       <Principles />
+      <InteractiveTimeline />
 
       <Section className="border-t border-line">
         <SectionHeading

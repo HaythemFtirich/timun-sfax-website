@@ -4,6 +4,38 @@
 
 ---
 
+## Session 07 — 19 November 2026 — Interactive timeline, numbers dashboard and animated dashboard
+
+**Goal:** owner request — "create an interactive timeline for timun that also stays and exists in the home page", make mission/vision/values a decorated animated dashboard, animate photographs on hover, and "showcase timun in numbers not bring texts". Use the supplied skills for inspiration and templates.
+
+### Skills and research used
+- `genjutsu-cast`: scanned the stack (Next.js 16, React 19, Tailwind 4, **no animation library**), wrote a focused interaction thesis before code (`docs/INTERACTION_THESIS.md`), loaded no dependency.
+- `impeccable-design`: applied `animate`/`delight` with restraint and stripped forbidden tells (glow, numbered eyebrows, three equal cards, middle-dot runs).
+- `ui-ux-pro-max`: committed to the dark editorial / data-dense dashboard archetype already locked in Phase 2.
+- `frontend-dev-bookmarks`/Awwwards reference: **Dorot — The Jewish Timeline** (Awwwards nominee) — borrowed the pattern of one large active year paired with a compact selectable rail. No code, copy or layout was copied. Web search was unavailable (HTTP 503), so Awwwards index data was used instead.
+
+### Work done
+- `src/content/numbers.ts` — six approved figures only (2009, April 2010, 2012, 20 clubs, 2015, 2018). No statistic invented.
+- `src/components/motion/scroll-reveal.tsx` — a single `IntersectionObserver` for all `[data-reveal]` elements, re-run on route change; reduced-motion and `data-motion="static"` land everything visible; `<noscript>` fallback in the layout.
+- `src/components/sections/numbers-dashboard.tsx` — asymmetric numbers-first dashboard: one dominant "20" tile plus five year tiles; per-digit rise; selecting a tile reveals its approved context via `aria-pressed`.
+- `src/components/sections/interactive-timeline.tsx` — interactive timeline shared by Home and `/about`; click a milestone to change the large active year; keyboard accessible with `aria-current`. Replaces the static `timeline.tsx`.
+- `src/components/sections/principles.tsx` — reworked into a bento-style dashboard (mission 7 cols / vision 5 cols / values full width), with hover rules and staggered value reveals; still not three equal cards.
+- `src/components/ui/animated-figure.tsx` — authentic photos with navy cast, 1.02→1.08 hover push-in, hairline draw and caption cue. Wired into Home and `/about`.
+- Home now renders Hero → About preview → Numbers → Mission/Vision/Values dashboard → Interactive timeline → Explore. `/about` renders the same numbers, dashboard and timeline sections plus five anchors.
+- `src/app/globals.css` — reveal, digit-rise and year-swap rules using only approved motion values: 720ms reveal, 70ms stagger capped 420ms, 180ms hover, `--ease` curve.
+
+### Verification
+- `npm run lint`, `npm run typecheck`, `npm run build` → all exit 0; nine static routes prerendered.
+- Live Home: four section IDs present, six figures rendered, 22 digit spans animate to opacity 1, selecting a tile sets `aria-pressed`, selecting a timeline milestone changes the large year to 2018 and sets `aria-current`, no horizontal overflow, no console errors in a fresh tab.
+- Live `/about`: five anchors resolve, six figures present, dashboard/timeline/numbers sections all present, no overflow.
+- Known stale-CSS quirk recurred after the production build; touching `globals.css` forced a clean dev recompile. A transient hydration warning was stale HMR state — a fresh tab was clean.
+
+### Open items
+- No dependency was installed. GSAP/parallax/page transitions remain deferred.
+- Board preview (P4-T4), footer data and Phase 5–7 content remain gated on owner data.
+
+---
+
 ## Session 06 — 19 November 2026 — Phase 4: Home & About with approved copy
 
 **Goal:** build the first content-bearing phase using only owner-approved material.
