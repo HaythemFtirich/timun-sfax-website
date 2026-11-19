@@ -2,7 +2,7 @@
 
 > **Legend:** `[ ]` Not started · `[x]` Completed · `[!]` Blocked / requires attention (see notes)
 > **Companion:** `MASTER_ROADMAP.md` (phase objectives and acceptance criteria), `SESSION_HANDOVER.md` (continuity).
-> **Last updated:** 19 November 2026 — Session 01.
+> **Last updated:** 19 November 2026 — Session 04 (Phase 2 design system).
 
 > **Rule:** A task is `[x]` only after its verification step has actually been performed and recorded. Owner-supplied content tasks remain `[!]` until the verified item is received — never simulate them with fabricated data.
 
@@ -25,8 +25,8 @@
 - [ ] **P0-T6** Owner: supply/approve final English copy (About, mission, vision, values).
   - *Dependency of:* P4-T1…T3, P4-T8. *Verification:* written approval recorded in `TECHNICAL_DECISIONS.md`.
   - *Notes:* French source material exists in the documentation; final approved English wording required.
-- [!] **P0-T7** Owner: approve or reject proposed tagline "Dialogue. Diplomacy. Leadership."
-  - *Dependency of:* P4-T1. *Verification:* decision recorded; tagline omitted if not approved.
+- [x] **P0-T7** Owner: approve or reject proposed tagline.
+  - *Dependency of:* P4-T1. *Verification:* owner chose **`Diplomacy. Leadership. Negotiation.`** on 19 Nov 2026 after a clarification question with suggested options; recorded in `DESIGN_SYSTEM.md` §12 and TD-22. Hero headline remains brand name only.
 - [!] **P0-T8** Owner: supply verified event data + selected photographs.
   - *Dependency of:* P5-T1…T6. *Verification:* one approved dataset per publishable event.
 - [!] **P0-T9** Owner: supply final study-guide PDFs + titles/descriptions/keywords.
@@ -67,18 +67,22 @@
 
 ## Phase 2 — Design System
 
-- [ ] **P2-T1** Finalize color tokens from approved references.
-  - *Dependencies:* P0-T5 candidates + owner approval. *Verification:* tokens approved in `DESIGN_SYSTEM.md`.
-- [ ] **P2-T2** Select free font pairings and define type scale.
-  - *Dependencies:* owner approval. *Verification:* font license is free; scale documented.
-- [ ] **P2-T3** Define spacing, radii, borders, shadows/glow, containers.
-  - *Dependencies:* P2-T1. *Verification:* token file complete.
-- [ ] **P2-T4** Build UI primitives (Button, Container, SectionHeading, Card, Reveal).
-  - *Dependencies:* P1, P2-T1…T3. *Verification:* primitives render at all breakpoints.
-- [ ] **P2-T5** Document logo sizing/clear-space rules for light and dark backgrounds.
-  - *Dependencies:* owner brand rules if any. *Verification:* documented; no distortion.
+- [x] **P2-T1** Finalize color tokens from approved references.
+  - *Verification:* navy/gold system approved by owner; single-sourced in `src/app/globals.css` and documented in `DESIGN_SYSTEM.md` §2. Old blue retired (3.36:1).
+- [x] **P2-T2** Select free font pairings and define type scale.
+  - *Verification:* Plus Jakarta Sans 800 + Inter, both free/OFL, self-hosted via `next/font/google`; fluid scale documented in `DESIGN_SYSTEM.md` §3.
+- [x] **P2-T3** Define spacing, radii, borders and containers (no glow).
+  - *Verification:* 1280px container, 64/110px section rhythm, 8/12/18px radii, hairline borders in globals.css and `DESIGN_SYSTEM.md` §4.
+- [x] **P2-T4** Build static UI primitives.
+  - *Verification:* `Container`, `Section`, `SectionHeading`, `Button`/`ButtonLink`, `Card` implemented in `src/components/ui/` and exported via `index.ts`; computed styles checked in browser. `Reveal` deliberately deferred to Phase 8 with the motion gate — content visible by default.
+- [x] **P2-T5** Document logo sizing/clear-space rules for light and dark backgrounds.
+  - *Verification:* `DESIGN_SYSTEM.md` §7; no distortion and originals untouched (TD-17/TD-19).
 - [ ] **P2-T6** Owner approval of `DESIGN_SYSTEM.md`.
-  - *Verification:* owner sign-off recorded.
+  - *Verification:* owner sign-off recorded. Direction, fonts, thesis, tagline and hero approach are approved; the rewritten document itself still awaits explicit sign-off.
+- [x] **P2-T7** Capture and approve the cinematic interaction thesis.
+  - *Verification:* rendered `docs/motion-thesis.html` approved with exact values; documented in `DESIGN_SYSTEM.md` §5. No motion library installed; no motion code written (TD-21).
+- [x] **P2-T8** Owner clarification on tagline and hero headline with suggested options.
+  - *Verification:* tagline `Diplomacy. Leadership. Negotiation.` approved; hero = brand name only; recorded in `DESIGN_SYSTEM.md` §12 and TD-22.
 
 ---
 

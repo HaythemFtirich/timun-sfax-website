@@ -4,6 +4,40 @@
 
 ---
 
+## Session 04 — 19 November 2026 — Phase 2: Design System
+
+**Goal:** Lock the approved visual and motion direction in code and documentation, then obtain the headline/tagline decision.
+
+### Owner decisions received this session
+- Overall direction: **dark editorial / cinematic institutional** — owner loved the board but wanted richer animation after seeing `https://enactustbs.com/?lang=fr`.
+- Fonts: **keep Plus Jakarta Sans (display) + Inter (body)**.
+- Motion scope: **full cinematic journey**; preview mode: **rendered page**.
+- Interaction thesis: **approved with exact values** (900/120ms hero, 720/70/420ms reveals, 1.02→1.08 push-in, ±80px drift, 180ms hover, one rAF pass, static reduced-motion path).
+- Tagline: **`Diplomacy. Leadership. Negotiation.`** (owner-supplied variant).
+- Hero headline: **brand name only** — no other headline until approved copy exists.
+
+### Work done
+- Studied `https://tsyp.ieee.tn` for scale and `https://enactustbs.com/?lang=fr` for motion. The latter is library-free: one `requestAnimationFrame` scroll pass, `IntersectionObserver`, transform custom properties, canvas, SVG drawing, View Transitions and reduced-motion support. No GSAP/Motion/Lenis detected.
+- Created and previewed `docs/design-board.html` and `docs/motion-thesis.html` (throwaway proposals, not implementation code).
+- Replaced the stale blue-candidate `docs/DESIGN_SYSTEM.md` with the approved system: palette, type scale, layout, radii, logo rules, motion thesis, tells and content guardrails.
+- Replaced placeholder blue tokens in `src/app/globals.css` with the approved single-sourced palette/type/layout tokens; added the `html[data-motion="static"]` slow-connection hook alongside `prefers-reduced-motion`.
+- Swapped Geist fonts for self-hosted Inter + Plus Jakarta Sans via `next/font/google`; browser tab title remains exactly `TIMUN Sfax`.
+- Added static primitives in `src/components/ui/`: `Container`, `Section`, `SectionHeading`, `Button`/`ButtonLink`, `Card`, plus `src/lib/cn.ts` and a barrel export. `Reveal` deliberately deferred to Phase 8 with the motion gate — content is visible by default.
+- Updated the development placeholder homepage to exercise the new tokens and primitives without publishing any organizational claims.
+- Updated `MASTER_ROADMAP.md`, `TASK_TRACKER.md`, `SESSION_HANDOVER.md` and `TECHNICAL_DECISIONS.md`.
+
+### Verification
+- `npm run lint`, `npm run typecheck`, `npm run build` → all exit 0; seven static routes.
+- Browser at `http://localhost:3000`: `<title>` exactly `TIMUN Sfax`; navy `#071522` canvas; `#F5F3EE` text; Inter body; Plus Jakarta Sans headings (70.8px hero / 40px section heading at 786px viewport); 11px gold mono eyebrow; `#0E2438` cards, 12px radius; gold pill button with navy text; 180ms shared easing; 64px section padding.
+- Initial browser check showed stale blue CSS after running a production build against the live dev server; touching `globals.css` forced a clean recompile and all approved values were then confirmed. Avoid running `next build` while the dev server is active for future checks.
+
+### Open items
+- Owner sign-off on the rewritten `DESIGN_SYSTEM.md` (P2-T6).
+- Phase 3 shared layout/navigation; all content-bearing phases still blocked on P0-T6…T13.
+- Motion implementation remains Phase 8; no dependency installed.
+
+---
+
 ## Session 03 — 19 November 2026 — Browser tab icon and title
 
 **Owner request:** show the TIMUN Sfax logo in the browser tab next to the name, keep the tab name as only `TIMUN Sfax` (no other text), improve icon quality and make it slightly bigger.

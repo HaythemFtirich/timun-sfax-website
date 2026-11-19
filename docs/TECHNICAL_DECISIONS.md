@@ -43,6 +43,7 @@
   - **CSS:** simple hover states, transitions, decorative/ambient motion.
 - **Reason:** Each tool used where it is strongest; avoids solving the same simple problem twice.
 - **Consequences:** Two JS animation libraries increase bundle size — keep GSAP imports minimal and only on pages that need it. `prefers-reduced-motion` must be honored globally.
+- **Phase 2 amendment (19 Nov 2026):** no animation dependency has been installed. After studying `https://enactustbs.com/?lang=fr`, the owner approved a library-free implementation pattern for Phase 8 — native CSS, `IntersectionObserver`, one `requestAnimationFrame` pass, SVG, canvas and View Transitions. Any future library addition requires asking the owner first. See TD-21.
 
 ## TD-05 — Content management: static modules, no CMS
 
@@ -104,13 +105,13 @@
 - **Reason:** Balanced visual quality and performance; no paid CDN; preserves originals.
 - **Consequences:** Requires an optimization step for new photos; logos stay as PNG/SVG at original proportions.
 
-## TD-12 — Color tokens derived from logos
+## TD-12 — Color tokens derived from logos (superseded by TD-20)
 
-- **Status:** PROPOSED / pending owner approval.
-- **Problem:** Need a navy/blue palette grounded in the real brand.
-- **Selected (candidates only):** `#607384` (TIMUN Sfax logo slate blue), `#3E6589` (national navy), `#226BB4` (national vivid blue), `#C1DFE8` (national light cyan), `#FFFFFF` (white logo variant). Deeper navy surfaces to be defined for the site foundation.
-- **Reason:** Sampled directly from the supplied logo files rather than guessed.
-- **Consequences:** These are **not** official brand tokens until the owner approves; darker UI backgrounds must be designed separately and contrast-tested. Detailed in `DESIGN_SYSTEM.md`.
+- **Status:** SUPERSEDED 19 Nov 2026 — the candidate blue palette was rejected on contrast grounds.
+- **Problem:** Need a palette grounded in the real brand.
+- **Candidates (rejected):** `#607384`, `#3E6589`, `#226BB4`, `#C1DFE8`, `#FFFFFF`, sampled from logo pixels.
+- **Reason for rejection:** `#226BB4` on navy measures only 3.36:1 and fails WCAG AA for body text. The owner approved the warm-gold-on-navy palette in TD-20 instead.
+- **Consequences:** No blue accent anywhere in the approved interface. The candidates remain only as an audit record; see `DESIGN_SYSTEM.md`.
 
 ## TD-13 — Optional cinematic extras (intro animation, custom cursor)
 
@@ -164,6 +165,33 @@
 - **Reason:** Version-matched docs recommend these; the site is fully static with no uncached data, so Cache Components adds no risk here.
 - **Consequences:** Team must read `node_modules/next/dist/docs/` rather than rely on older Next.js knowledge; if a future feature triggers a blocking-prerender error, revisit `cacheComponents`.
 
+## TD-20 — Approved visual system: palette, fonts and scale
+
+- **Status:** APPROVED (owner, 19 Nov 2026).
+- **Problem:** Replace the blue placeholder tokens and Geist scaffold fonts with a distinctive, accessible identity.
+- **Alternatives:** keep the derived blue palette; use Inter alone; use a serif display accent; keep scaffold defaults.
+- **Selected:** Deep navy `#071522` with surfaces `#0E2438` / `#14304A`; warm gold `#D8B26A`, light gold `#F0C987`, cream `#E0D0C0`, text `#F5F3EE`, muted `#A7B4C2`. Plus Jakarta Sans 800 display + Inter body (both free, self-hosted through `next/font/google`); system monospace for 11px micro-labels. 1280px container, full-viewport hero, 64/110px section rhythm, restrained radii, no glow.
+- **Reason:** Gold on navy measures **9.21:1** versus 3.36:1 for the old blue; the display/body pairing matches the reference's typographic feel while staying open-source; scale creates the cinematic, one-focal-element-per-view rhythm.
+- **Consequences:** Tokens are single-sourced in `src/app/globals.css`; all future components must consume them rather than hard-coding colours. Full reference in `docs/DESIGN_SYSTEM.md`.
+
+## TD-21 — Library-free cinematic motion thesis
+
+- **Status:** APPROVED (owner, 19 Nov 2026); implementation deferred to Phase 8.
+- **Problem:** Deliver the complex, satisfying animation the owner saw on `https://enactustbs.com/?lang=fr` without adding dependencies or compromising content/accessibility.
+- **Alternatives:** GSAP + ScrollTrigger; Motion/Framer Motion; AOS; hand-written CSS keyframes only.
+- **Selected:** Native browser APIs modelled on the reference (which uses zero animation libraries): one `requestAnimationFrame` scroll pass writing transform custom properties, `IntersectionObserver` reveals, CSS masks/clips, SVG path drawing, canvas artwork, View Transitions. Locked values: 900ms/120ms hero, 720ms/70ms/420ms reveals, 1.02→1.08 push-in, ±80px drift, 180ms hover, shared `cubic-bezier(0.16, 1, 0.3, 1)`. Static fallback under `prefers-reduced-motion` and `html[data-motion="static"]` for slow connections.
+- **Reason:** Satisfies the owner's cinematic ambition, keeps the 0 TND/no-dependency constraint, avoids layout animation, and keeps all content readable without JavaScript.
+- **Consequences:** No library may be installed without asking first. Effects needing real photos, dates or statistics wait for approved content. Known reflexes kept: mono micro-labels, hairline rules, scroll cue after 48px; no glow, numbered eyebrows, three equal cards or middle-dot runs on public pages. Rendered proposal: `docs/motion-thesis.html`.
+
+## TD-22 — Tagline and hero headline
+
+- **Status:** APPROVED (owner, 19 Nov 2026).
+- **Problem:** Public headlines and taglines must never be invented; the owner asked for a clarification question with suggested options.
+- **Alternatives offered:** no tagline yet; "Dialogue. Diplomacy. Leadership."; "Sfax. Model United Nations."; "Ideas worth debating."; brand-only hero versus brand + tagline versus owner-supplied headline.
+- **Selected:** Tagline **`Diplomacy. Leadership. Negotiation.`** (owner-supplied variant). Hero headline: **brand name only** — no other headline until approved page copy arrives; the tagline must not be placed in the hero.
+- **Reason:** Explicit owner choice following the presented options; keeps the hero content-safe until Phase 4 copy is approved.
+- **Consequences:** The tagline is approved content and may be used elsewhere when relevant. Other illustrative phrases in `docs/design-board.html` remain unpublished. Recorded in `DESIGN_SYSTEM.md` §12 and P0-T7/P2-T8.
+
 ---
 
 ## Approval log
@@ -174,7 +202,7 @@
 | TD-09 | npm | Adopted by scaffold; no objection | 19 Nov 2026 |
 | TD-10 | App Router | Adopted by scaffold | 19 Nov 2026 |
 | TD-11 | Image strategy | Adopted; icon crop added via TD-17 | 19 Nov 2026 |
-| TD-12 | Candidate palette | Pending (Phase 2) | — |
+| TD-12 | Candidate blue palette | Rejected on contrast; replaced by TD-20 | 19 Nov 2026 |
 | TD-13 | Intro / custom cursor | Pending (Phase 8) | — |
 | TD-14 | Documentation process | Approved by first mission request | 19 Nov 2026 |
 | TD-15 | Local-only Git commits | Approved by owner | 19 Nov 2026 |
@@ -182,3 +210,6 @@
 | TD-17 | Cropped/recoloured icon treatment | Approved by owner | 19 Nov 2026 |
 | TD-18 | Next.js 16 defaults | Adopted | 19 Nov 2026 |
 | TD-19 | Tab title + multi-size logo icon | Approved by owner | 19 Nov 2026 |
+| TD-20 | Palette, fonts and scale | Approved by owner | 19 Nov 2026 |
+| TD-21 | Library-free motion thesis | Approved by owner; build in Phase 8 | 19 Nov 2026 |
+| TD-22 | Tagline + brand-only hero | Approved by owner | 19 Nov 2026 |

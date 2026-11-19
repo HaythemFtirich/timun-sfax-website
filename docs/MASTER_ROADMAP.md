@@ -1,6 +1,6 @@
 # TIMUN Sfax Website — Master Roadmap
 
-> **Version:** 1.1 · **Date:** 19 November 2026 · **Owner:** TIMUN Sfax / project owner
+> **Version:** 1.2 · **Date:** 19 November 2026 · **Owner:** TIMUN Sfax / project owner
 > **Governance:** A phase is marked COMPLETED only when **all** its acceptance criteria are satisfied and verified. No phase may be skipped.
 >
 > **Owner instruction (19 Nov 2026):** Phase 0 (content readiness) is now **continuous** — the owner updates content/assets in place as each phase progresses, rather than front-loading everything. Git is **local-only** for now: commit locally, no remote and no push until the final deployment stage.
@@ -24,8 +24,8 @@
 | Phase | Name | Status | Blocked by |
 | --- | --- | --- | --- |
 | 0 | Content Readiness & Asset Audit (continuous) | IN PROGRESS | Owner adds content/assets incrementally |
-| 1 | Project Setup (Next.js + TS + Tailwind + local Git) | REVIEW REQUIRED | All criteria verified; awaiting owner review |
-| 2 | Design System | NOT STARTED | Phase 1 review; palette/font approval |
+| 1 | Project Setup (Next.js + TS + Tailwind + local Git) | COMPLETED | Owner accepted Phase 1 |
+| 2 | Design System | REVIEW REQUIRED | Implementation verified; awaiting owner sign-off on `DESIGN_SYSTEM.md` |
 | 3 | Shared Layout & Navigation | NOT STARTED | Phase 2 |
 | 4 | Home & About | BLOCKED | Phase 3; approved copy, tagline, verified history |
 | 5 | Events Overview & Detail | BLOCKED | Phase 3; verified event data + photos |
@@ -83,7 +83,7 @@
 
 - **Objective:** A locally running Next.js + React + TypeScript + Tailwind project with linting, base structure, an app icon, and a local Git baseline.
 - **Dependencies:** P0-T1…T5 complete. GitHub remote/push is explicitly deferred to Phase 10.
-- **Current status:** REVIEW REQUIRED — all criteria verified; awaiting owner review.
+- **Current status:** COMPLETED — all criteria verified; owner accepted Phase 1.
 
 ### Tasks
 - **P1-T1** Scaffold the Next.js application (App Router, TypeScript, Tailwind CSS).
@@ -110,16 +110,18 @@
 ## Phase 2 — Design System
 
 - **Objective:** Approved, reusable visual foundations: palette, typography, spacing, radii, buttons, cards, containers, responsive rules, and logo usage.
-- **Dependencies:** Phase 1; P0-T5 derived colors; owner approval of palette and fonts.
-- **Current status:** NOT STARTED.
+- **Dependencies:** Phase 1 (complete); P0-T5 derived colors; owner approval of palette, fonts and motion thesis (received 19 Nov 2026).
+- **Current status:** REVIEW REQUIRED — tokens, fonts, scale, motion specification and static primitives are implemented and verified; awaiting owner sign-off on `DESIGN_SYSTEM.md`.
 
 ### Tasks
 - **P2-T1** Finalize color tokens from approved references (candidates already derived).
 - **P2-T2** Select free, self-hostable/Google font pairings and define the type scale.
-- **P2-T3** Define spacing, radii, borders, shadows/glow, and container widths.
-- **P2-T4** Build UI primitives (Button, Container, SectionHeading, Card shell, Reveal wrapper).
+- **P2-T3** Define spacing, radii, borders and container widths (no glow).
+- **P2-T4** Build static UI primitives (Button/ButtonLink, Container, Section, SectionHeading, Card shell). Reveal is deferred to Phase 8 with the motion gate.
 - **P2-T5** Document logo sizing/clear-space rules for light and dark backgrounds.
 - **P2-T6** Get owner approval of `DESIGN_SYSTEM.md`.
+- **P2-T7** Capture and approve the cinematic interaction thesis (`docs/motion-thesis.html`); exact values documented, implementation deferred to Phase 8.
+- **P2-T8** Owner clarification on tagline and hero headline with suggested options.
 
 ### Expected deliverables
 - Approved design system document; token definitions; reusable primitives.
@@ -129,6 +131,8 @@
 - **AC-P2-2** Primitives render correctly at all breakpoints.
 - **AC-P2-3** Text/background contrast verified.
 - **AC-P2-4** Logos are never stretched, recolored, cropped, or distorted.
+- **AC-P2-5** Approved motion thesis is documented with exact values; no motion library installed and no motion code written in Phase 2.
+- **AC-P2-6** Tagline (`Diplomacy. Leadership. Negotiation.`) and brand-name-only hero decision are recorded in `DESIGN_SYSTEM.md`.
 
 ---
 

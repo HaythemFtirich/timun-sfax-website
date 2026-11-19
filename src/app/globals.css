@@ -1,60 +1,121 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   Phase 1 foundation tokens.
-   These navy/blue values are PLACEHOLDERS derived from the supplied logos.
-   They will be reviewed and finalized in Phase 2 (DESIGN_SYSTEM.md).
+   TIMUN Sfax — approved design tokens (Phase 2, 19 Nov 2026).
+   Palette, type pairing, scale and motion values were approved by the owner.
+   Values are single-sourced here; Tailwind utilities are generated from them
+   through @theme inline below. No animation is applied globally — motion is
+   progressive enhancement introduced in Phase 8. Motion values live here as
+   documentation for the Phase 8 implementation.
    --------------------------------------------------------------------------- */
 :root {
+  /* Palette — approved. Warm gold replaces the failed blue accent. */
   --background: #071522;
-  --foreground: #f3f7fb;
+  --foreground: #f5f3ee;
 
-  --navy-deep: #071522;
-  --navy: #0d2338;
-  --navy-soft: #14304a;
+  --navy: #071522;
+  --surface: #0e2438;
+  --surface-2: #14304a;
 
-  --brand: #3e6589;
-  --brand-bright: #226bb4;
-  --brand-soft: #c1dfe8;
+  --gold: #d8b26a;
+  --gold-bright: #f0c987;
+  --cream: #e0d0c0;
+  --muted: #a7b4c2;
 
-  --muted: #a8bccf;
+  --line: rgba(245, 243, 238, 0.14);
+  --line-gold: rgba(216, 178, 106, 0.42);
+
+  /* Type scale — Plus Jakarta Sans (display) + Inter (body), both free/OFL. */
+  --fs-hero: clamp(3.5rem, 9vw, 7rem);
+  --fs-display: clamp(2.5rem, 5vw, 4.5rem);
+  --fs-card: clamp(1.375rem, 2vw, 1.75rem);
+  --fs-body-lg: 1.125rem;
+  --fs-body: 1rem;
+  --fs-micro: 0.6875rem;
+
+  --tracking-display: -0.04em;
+  --leading-display: 1.02;
+  --leading-body: 1.7;
+  --tracking-micro: 0.2em;
+
+  /* Layout — 1280px container, ~110px desktop / 64px mobile section rhythm. */
+  --container-page: 1280px;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --section-y: clamp(4rem, 8vw, 6.875rem);
+
+  /* Radii — restrained and consistent. */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.125rem;
+  --radius-pill: 999px;
+
+  /* Motion vocabulary — approved interaction thesis. Values only; no code. */
+  --duration-fast: 180ms;
+  --duration-reveal: 720ms;
+  --duration-hero: 900ms;
+  --step-hero: 120ms;
+  --step-reveal: 70ms;
+  --stagger-cap: 420ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
-  --color-navy-deep: var(--navy-deep);
   --color-navy: var(--navy);
-  --color-navy-soft: var(--navy-soft);
-
-  --color-brand: var(--brand);
-  --color-brand-bright: var(--brand-bright);
-  --color-brand-soft: var(--brand-soft);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-cream: var(--cream);
   --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-gold-line: var(--line-gold);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-plus-jakarta-sans), var(--font-inter), sans-serif;
+  --font-body: var(--font-inter), Arial, Helvetica, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+
+  --text-hero: var(--fs-hero);
+  --text-display: var(--fs-display);
+  --text-card: var(--fs-card);
+  --text-body-lg: var(--fs-body-lg);
+  --text-micro: var(--fs-micro);
 }
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  html {
+    background: var(--background);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--leading-body);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  /* Visible keyboard focus is required by the accessibility plan. */
+  :focus-visible {
+    outline: 2px solid var(--gold-bright);
+    outline-offset: 3px;
+  }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  min-height: 100vh;
-}
-
-/* Visible keyboard focus is required by the accessibility plan. */
-:focus-visible {
-  outline: 2px solid var(--brand-bright);
-  outline-offset: 3px;
-}
-
-/* Reduced-motion fallback established early so all later phases inherit it. */
+/* ---------------------------------------------------------------------------
+   Static fallbacks. Reduced motion (and the Phase 8 slow-connection switch)
+   land every element in its finished, fully readable state. Content must
+   never depend on motion to appear.
+   --------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -68,4 +129,17 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+html[data-motion="static"] {
+  scroll-behavior: auto;
+}
+
+html[data-motion="static"] *,
+html[data-motion="static"] *::before,
+html[data-motion="static"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
 }

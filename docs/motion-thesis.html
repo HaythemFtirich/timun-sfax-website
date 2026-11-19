@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TIMUN Sfax — Interaction thesis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#071522; --surface:#0e2438; --surface-2:#14304a;
+    --gold:#d8b26a; --gold-bright:#f0c987; --cream:#e0d0c0;
+    --text:#f5f3ee; --muted:#a7b4c2; --line:rgba(245,243,238,.14);
+    --display:"Plus Jakarta Sans",Inter,sans-serif;
+    --body:Inter,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Consolas,monospace;
+    /* Values in the thesis. Nothing below invents a number. */
+    --fast:180ms; --reveal:720ms; --hero:900ms;
+    --stagger:70ms; --stagger-max:420ms; --hero-step:120ms;
+    --ease:cubic-bezier(0.16,1,0.3,1);
+  }
+  *{box-sizing:border-box} html{scroll-behavior:auto}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased}
+  .wrap{width:min(1120px,calc(100% - 40px));margin:0 auto}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+  header{padding:52px 0 40px;border-bottom:1px solid var(--line)}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,4vw,48px);letter-spacing:-.04em;line-height:1.05;margin:16px 0 18px}
+  .thesis{font-size:17px;line-height:1.75;max-width:78ch;color:var(--text);margin:0}
+  .allowed{margin-top:24px;padding:18px 20px;background:var(--surface);border-left:2px solid var(--gold);border-radius:0 10px 10px 0;font-size:14px;line-height:1.7;color:var(--muted)}
+  .allowed b{color:var(--gold);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+  .notice{margin-top:18px;font-size:13px;color:var(--muted);font-style:italic}
+
+  .toolbar{position:sticky;top:0;z-index:20;background:rgba(7,21,34,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .toolbar .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:12px 0;flex-wrap:wrap}
+  .toolbar .left{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  button{font-family:var(--body);font-size:13px;font-weight:600;border-radius:999px;padding:9px 17px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer;transition:background var(--fast) var(--ease),color var(--fast) var(--ease),border-color var(--fast) var(--ease),transform var(--fast) var(--ease)}
+  button:hover{background:var(--gold);color:#0a1723;border-color:var(--gold)}
+  button:active{transform:scale(.97)}
+  button:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px}
+  label.toggle{display:flex;gap:9px;align-items:center;font-size:13px;color:var(--muted);cursor:pointer}
+  input[type=checkbox]{accent-color:var(--gold);width:16px;height:16px}
+
+  section.demo{padding:64px 0;border-bottom:1px solid var(--line)}
+  h2{font-family:var(--display);font-weight:800;font-size:clamp(26px,3.4vw,38px);letter-spacing:-.035em;margin:10px 0 8px}
+  .desc{color:var(--muted);font-size:14px;line-height:1.7;max-width:70ch;margin:0 0 26px}
+  .grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+  @media(max-width:800px){.grid2{grid-template-columns:1fr}}
+
+  .plot{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .plot svg{width:100%;height:auto;display:block}
+  .plot .formula{margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--gold-bright)}
+  .values{border-top:1px solid var(--line)}
+  .vrow{display:grid;grid-template-columns:1fr auto;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .vrow span:first-child{color:var(--muted)}
+  .vrow span:last-child{font-family:var(--mono);color:var(--text)}
+
+  .stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:34px;min-height:210px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+  .heroline{font-family:var(--display);font-weight:800;font-size:clamp(40px,7vw,86px);line-height:.95;letter-spacing:-.055em;overflow:hidden}
+  .heroline > span{display:block;transform:translateY(110%);opacity:0}
+  .heroline.play > span{animation:lineIn var(--hero) var(--ease) forwards;animation-delay:calc(var(--i) * var(--hero-step))}
+  @keyframes lineIn{to{transform:translateY(0);opacity:1}}
+  .caption{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:18px}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .rv{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:22px 18px;opacity:0;transform:translateY(24px)}
+  .rv.play{animation:rvIn var(--reveal) var(--ease) forwards;animation-delay:var(--d,0ms)}
+  @keyframes rvIn{to{opacity:1;transform:translateY(0)}}
+  .rv b{display:block;font-family:var(--display);font-size:22px;letter-spacing:-.03em;color:var(--gold)}
+  .rv small{display:block;margin-top:8px;font-size:12px;color:var(--muted);line-height:1.5}
+
+  .scrollbox{height:300px;overflow-y:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);scrollbar-color:var(--gold) var(--surface)}
+  .scrollbox .inner{height:1200px;padding:26px}
+  .sticky{position:sticky;top:26px;height:230px;border-radius:12px;overflow:hidden;background:#0a1c2c;display:flex;align-items:center;justify-content:center;position:sticky}
+  .pushimg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transform:scale(var(--kb,1.02)) translateY(var(--par,0px));will-change:transform;background:radial-gradient(circle at 50% 45%,rgba(216,178,106,.22),transparent 62%),repeating-linear-gradient(135deg,rgba(245,243,238,.035) 0 10px,transparent 10px 20px)}
+  .pushimg span{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,54px);letter-spacing:-.05em;color:var(--cream)}
+  .readout{margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--gold-bright)}
+
+  .rail{height:3px;background:rgba(245,243,238,.12);border-radius:2px;overflow:hidden}
+  .rail i{display:block;height:100%;width:100%;background:var(--gold);transform:scaleX(var(--p,0));transform-origin:left center;transform-origin:left center}
+
+  .btn-demo{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#0a1723;border:1px solid var(--gold);border-radius:999px;padding:14px 26px;font-size:14px;font-weight:600}
+  .btn-demo:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px}
+  .btn-demo[disabled]{opacity:.4;cursor:not-allowed}
+  .states{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+  /* Reduced-motion path: thesis says static, readable, no transform. */
+  html[data-reduced] *{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}
+  html[data-reduced] .heroline > span,html[data-reduced] .rv{transform:none!important;opacity:1!important}
+  html[data-reduced] .pushimg{transform:none!important}
+  html[data-reduced] .rail i{transform:scaleX(1)!important}
+  footer{padding:40px 0 70px;color:var(--muted);font-size:13px;line-height:1.7}
+  footer b{color:var(--gold)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <p class="eyebrow">genjutsu: cast · interaction thesis · rendered preview</p>
+    <h1>TIMUN Sfax — motion direction</h1>
+    <p class="thesis"><strong>Interaction thesis:</strong> TIMUN Sfax will feel like one considered descent through an institutional record: a <b>900ms</b> line-by-line hero reveal with a <b>120ms</b> step sets the pace, scroll drives <b>1.02→1.08</b> image push-in and <b>±80px</b> layered drift inside sticky chapters, <b>720ms</b> intersection reveals arrive on a <b>70ms</b> stagger capped at <b>420ms</b>, and a <b>180ms</b> hover language keeps controls quiet — all transform/opacity-only in a single rAF pass, with a static, fully readable state under reduced motion or a slow connection.</p>
+    <p class="allowed"><b>Allowed patterns:</b> full-viewport hero · canvas-measured display lines · sticky chapter stages · hairline gold progress rail · thin rules · mono micro-labels · scroll cue fading at <span class="mono">48px</span> · single warm-gold accent on navy · generous negative space · odometer figures only for approved statistics · reduced-motion static fallback.</p>
+    <p class="notice">This page is the proposal, not the build. It shows the exact timing and curve; nothing here becomes implementation code.</p>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="wrap">
+    <div class="left">
+      <button type="button" id="replayAll">Replay all entrances</button>
+      <button type="button" id="replayHero">Replay hero</button>
+      <button type="button" id="replayCards">Replay stagger</button>
+    </div>
+    <label class="toggle"><input type="checkbox" id="reduced"> Show reduced-motion state</label>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="demo">
+    <p class="eyebrow">01 — Easing &amp; numbers</p>
+    <h2>One curve, one vocabulary.</h2>
+    <p class="desc">Every entrance uses the same decelerating curve. Hover uses the same curve at the short duration. No spring, no bounce, no layout animation.</p>
+    <div class="grid2">
+      <div class="plot">
+        <svg viewBox="0 0 240 220" role="img" aria-label="Cubic bezier easing curve from 0,0 to 1,1">
+          <defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="rgba(245,243,238,.08)" stroke-width="1"/></pattern></defs>
+          <rect x="20" y="0" width="200" height="200" fill="url(#g)" stroke="rgba(245,243,238,.18)"/>
+          <line x1="20" y1="200" x2="220" y2="0" stroke="rgba(245,243,238,.12)" stroke-dasharray="4 4"/>
+          <path d="M20 200 C52 0, 80 0, 220 0" fill="none" stroke="#d8b26a" stroke-width="3"/>
+          <circle cx="20" cy="200" r="4" fill="#f0c987"/><circle cx="220" cy="0" r="4" fill="#f0c987"/>
+          <text x="20" y="216" fill="#a7b4c2" font-size="10" font-family="monospace">0</text>
+          <text x="212" y="216" fill="#a7b4c2" font-size="10" font-family="monospace">1</text>
+          <text x="0" y="12" fill="#a7b4c2" font-size="10" font-family="monospace">1</text>
+          <text x="0" y="205" fill="#a7b4c2" font-size="10" font-family="monospace">0</text>
+        </svg>
+        <div class="formula">cubic-bezier(0.16, 1, 0.3, 1)</div>
+      </div>
+      <div class="values">
+        <div class="vrow"><span>Hover / focus</span><span>180ms</span></div>
+        <div class="vrow"><span>Intersection reveal</span><span>720ms</span></div>
+        <div class="vrow"><span>Hero line entrance</span><span>900ms</span></div>
+        <div class="vrow"><span>Hero line step</span><span>120ms</span></div>
+        <div class="vrow"><span>Stagger step / cap</span><span>70ms / 420ms</span></div>
+        <div class="vrow"><span>Chapter push-in</span><span>scale 1.02 → 1.08</span></div>
+        <div class="vrow"><span>Layered drift</span><span>±80px</span></div>
+        <div class="vrow"><span>Scroll cue fade</span><span>after 48px</span></div>
+        <div class="vrow"><span>Scroll pass</span><span>one rAF</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo">
+    <p class="eyebrow">02 — Hero</p>
+    <h2>Type arrives line by line.</h2>
+    <p class="desc">900ms per line on the shared curve, 120ms apart, clipped by a mask so the edges stay straight. This is the only entrance at hero scale.</p>
+    <div class="stage">
+      <div class="heroline" id="hero">
+        <span style="--i:0">TIMUN</span>
+        <span style="--i:1">Sfax</span>
+      </div>
+      <p class="caption">900ms · 120ms step · mask reveal</p>
+    </div>
+  </section>
+
+  <section class="demo">
+    <p class="eyebrow">03 — Staggered reveals</p>
+    <h2>Groups arrive in sequence, never all at once.</h2>
+    <p class="desc">Intersection-triggered, 720ms each on the shared curve, 70ms apart, capped at 420ms so a long list never crawls.</p>
+    <div class="cards" id="cards">
+      <div class="rv" style="--d:0ms"><b>01</b><small>Committee</small></div>
+      <div class="rv" style="--d:70ms"><b>02</b><small>Delegation</small></div>
+      <div class="rv" style="--d:140ms"><b>03</b><small>Conference</small></div>
+      <div class="rv" style="--d:210ms"><b>04</b><small>Community</small></div>
+      <div class="rv" style="--d:280ms"><b>05</b><small>Archive</small></div>
+      <div class="rv" style="--d:350ms"><b>06</b><small>Contact</small></div>
+    </div>
+    <p class="caption" style="margin-top:18px">720ms · 70ms step · 420ms cap</p>
+  </section>
+
+  <section class="demo">
+    <p class="eyebrow">04 — Scroll chapter + rail</p>
+    <h2>Scroll drives one transform, not a layout.</h2>
+    <p class="desc">Inside this little scroller: the image pushes from 1.02 to 1.08, the label drifts between +80px and −80px, and the hairline rail fills. One rAF pass writes three custom properties. Scroll it.</p>
+    <div class="scrollbox" id="scrollbox">
+      <div class="inner">
+        <div class="sticky">
+          <div class="pushimg" id="push"><span>Sfax · Tunisia</span></div>
+        </div>
+        <p class="readout">Scroll inside this box — transform values update live below.</p>
+        <p class="readout" id="parOut">scale 1.0200 · drift +80px</p>
+      </div>
+    </div>
+    <div class="rail" style="margin-top:18px"><i id="railFill"></i></div>
+    <p class="caption">one rAF · transform-only · hairline rail</p>
+  </section>
+
+  <section class="demo">
+    <p class="eyebrow">05 — Hover language</p>
+    <h2>180ms, quiet and consistent.</h2>
+    <p class="desc">Default, hover, focus, active and disabled. No bounce, no shadow, no colour drift beyond the gold accent.</p>
+    <div class="states">
+      <button type="button" class="btn-demo">Default</button>
+      <button type="button" class="btn-demo" disabled>Disabled</button>
+      <span class="caption">hover and focus are interactive — try them</span>
+    </div>
+  </section>
+
+  <section class="demo">
+    <p class="eyebrow">06 — Reduced motion</p>
+    <h2>The site stays complete without motion.</h2>
+    <p class="desc">Toggle it above. Every entrance lands in its finished state instantly, parallax stops, the rail shows full, and all content remains readable. Slow connections take the same path.</p>
+    <div class="stage"><p style="margin:0;font-family:var(--display);font-size:clamp(26px,4vw,44px);font-weight:800;letter-spacing:-.04em">Nothing only moves.</p></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Validation question:</b> approve this thesis and its values — 900/120ms hero, 720/70/420ms reveals, 1.02→1.08 push-in, ±80px drift, 180ms hover, one rAF pass, static reduced-motion path — or tell me what to change.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  function replayHero(){var h=document.getElementById('hero');h.classList.remove('play');void h.offsetWidth;h.classList.add('play');}
+  function replayCards(){var c=document.querySelectorAll('#cards .rv');c.forEach(function(e){e.classList.remove('play');});void document.body.offsetWidth;c.forEach(function(e){e.classList.add('play');});}
+  document.getElementById('replayHero').addEventListener('click',replayHero);
+  document.getElementById('replayCards').addEventListener('click',replayCards);
+  document.getElementById('replayAll').addEventListener('click',function(){replayHero();replayCards();});
+  replayHero();
+  setTimeout(replayCards,420);
+
+  var box=document.getElementById('scrollbox'),push=document.getElementById('push'),out=document.getElementById('parOut'),fill=document.getElementById('railFill'),ticking=false;
+  function paint(){
+    ticking=false;
+    var max=Math.max(1,box.scrollHeight-box.clientHeight);
+    var t=Math.min(1,Math.max(0,box.scrollTop/max));
+    var kb=1.02+t*0.06;
+    var par=Math.round((0.5-t)*160);
+    push.style.setProperty('--kb',kb.toFixed(4));
+    push.style.setProperty('--par',par+'px');
+    fill.style.setProperty('--p',t.toFixed(4));
+    out.textContent='scale '+kb.toFixed(4)+' · drift '+(par>=0?'+':'')+par+'px';
+  }
+  box.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(paint);}},{passive:true});
+  paint();
+
+  document.getElementById('reduced').addEventListener('change',function(e){root.toggleAttribute('data-reduced',e.target.checked);});
+})();
+</script>
+</body>
+</html>
