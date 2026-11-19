@@ -10,10 +10,11 @@ export function Hero() {
   return (
     <section className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-navy">
       <Image
-        src="/images/hero/groupphoto2.jpg"
+        src="/images/hero/groupphoto2-upscaled.webp"
         alt="TIMUN Sfax group photograph"
         fill
-        priority
+        preload
+        quality={95}
         sizes="100vw"
         className="object-cover object-center"
       />

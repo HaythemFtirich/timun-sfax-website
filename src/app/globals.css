@@ -114,7 +114,7 @@
 @layer components {
   /* Full-bleed hero photograph treatment: a navy colour cast, then a scrim
      anchored bottom-left so the headline stays legible while the upper-right
-     of the photograph remains visible. Modelled on the reference site. */
+     of the photograph remains visible. Modelled on the reference site. Rebuilt for the 2x hero source. */
   .hero-scrim {
     background:
       radial-gradient(

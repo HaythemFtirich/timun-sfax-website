@@ -24,7 +24,8 @@
 - **No animation library installed.** Phase 8 will use native CSS, `IntersectionObserver`, one rAF pass, SVG and canvas, following the library-free reference `enactustbs.com`. Adding a library requires asking the owner first.
 - **Tells:** allowed — mono micro-labels, hairline rules, scroll cue after 48px. Forbidden on public pages — glow, numbered eyebrows, three equal cards, middle-dot runs, invented statistics.
 - **Content choices:** approved tagline `Diplomacy. Leadership. Negotiation.`; hero headline **brand name only**. Tagline must not go in the hero. Illustrative phrases in `docs/design-board.html` remain unpublished.
-- **Hero photo treatment (owner request, 19 Nov 2026):** full-bleed `public/images/hero/groupphoto2.jpg` with a navy `mix-blend-color` cast (`bg-surface-2/45`) and `.hero-scrim` radial/linear overlay anchored bottom-left, modelled on the reference site but in navy/gold. The owner may request cast/scrim intensity changes — treat the current values as a starting point, not locked.
+- **Hero photo treatment (owner request, 19 Nov 2026):** full-bleed photo with a navy `mix-blend-color` cast (`bg-surface-2/45`) and `.hero-scrim` radial/linear overlay anchored bottom-left, modelled on the reference site but in navy/gold. The owner may request cast/scrim intensity changes — treat the current values as a starting point, not locked.
+- **Hero image source (TD-24):** hero now uses `public/images/hero/groupphoto2-upscaled.webp` — a deterministic 2× Lanczos upscale (2160×1240) of `groupphoto2.jpg` with subtle sharpening, because the original is only 1080×620. Rendered with `quality={95}` (Next.js 16 requires `images.qualities` allowlist in `next.config.ts`) and `preload` (v16 replacement for deprecated `priority`). Originals in `assets/` and `public/images/hero/groupphoto2.jpg` are untouched. AI super-resolution was requested but the image tool failed with `Invalid credential`; a higher-res original from the owner is the only route to genuine extra detail.
 
 ## 3. What was completed in Sessions 04–05
 
@@ -45,7 +46,7 @@
 
 ## 4. Files created / modified
 
-**Created:** `docs/design-board.html`, `docs/motion-thesis.html`, `src/lib/cn.ts`, `src/components/ui/{container,section,section-heading,button,card,index}.tsx`; Session 05 added `src/components/sections/hero.tsx`, `src/components/layout/site-header.tsx`, `src/app/not-found.tsx`, `public/images/hero/groupphoto2.jpg`.
+**Created:** `docs/design-board.html`, `docs/motion-thesis.html`, `src/lib/cn.ts`, `src/components/ui/{container,section,section-heading,button,card,index}.tsx`; Session 05 added `src/components/sections/hero.tsx`, `src/components/layout/site-header.tsx`, `src/app/not-found.tsx`, `public/images/hero/groupphoto2.jpg`, `public/images/hero/groupphoto2-upscaled.webp`.
 **Modified:** `src/app/globals.css`, `src/app/layout.tsx`, `src/app/page.tsx`, `docs/DESIGN_SYSTEM.md`, `docs/MASTER_ROADMAP.md`, `docs/TASK_TRACKER.md`, `docs/DEVELOPMENT_LOG.md`, `docs/SESSION_HANDOVER.md`, `docs/TECHNICAL_DECISIONS.md`, plus the two HTML previews.
 **Preserved:** `assets/` originals (including `assets/groupphoto2.jpg`), `TIMUN_Sfax_Website_Project_Documentation.docx` (gitignored), all five icon PNGs.
 

@@ -201,6 +201,19 @@
 - **Reason:** Delivers the owner's desired cinematic first screen immediately with content-safe copy; reuses the approved palette; keeps the authentic photograph unaltered on disk; no dependency or heavy motion introduced (Phase 8 gate respected).
 - **Consequences:** The cast/scrim values are a starting point and may be tuned per owner feedback. The official white logo sits in a transparent absolute header (`src/components/layout/site-header.tsx`); scroll-reactive solid nav is deferred to Phase 8. No desktop/mobile navigation or footer was added — those remain gated on nav structure and P0-T11/P0-T12.
 
+## TD-24 — Hero image quality: Next.js 16 allowlist + 2× local upscale
+
+- **Status:** IMPLEMENTED (owner approved AI upscale 19 Nov 2026; AI tool unavailable, so a faithful local upscale was used).
+- **Problem:** Owner reported the hero photograph looked low quality. Two causes: (1) Next.js 16 changed `images.qualities` default to `[75]`, so the 173 KB source was being recompressed to ~89 KB with visible artefacts; (2) the source itself is only 1080×620 and is enlarged ~1.8× to fill a desktop viewport.
+- **Selected:**
+  - `next.config.ts` adds `images.qualities: [75, 90, 95, 100]` (required allowlist in Next.js 16 — unlisted values return HTTP 400).
+  - Hero `Image` uses `quality={95}` (~184 KB WebP at 1080w) instead of the default 75.
+  - Deprecated `priority` prop replaced with `preload` per Next.js 16 docs (LCP hero).
+  - A **deterministic 2× upscale** of the original was produced with Pillow: `Image.Resampling.LANCZOS` to 2160×1240, subtle `UnsharpMask(radius=1.4, percent=120, threshold=3)`, saved as WebP q95 (518 KB) at `public/images/hero/groupphoto2-upscaled.webp`. The hero now uses this file; `assets/groupphoto2.jpg` and `public/images/hero/groupphoto2.jpg` remain untouched.
+- **Alternatives considered:** AI super-resolution (owner's first choice) — the `experimental_image_generate` tool failed with `Invalid credential`, so it could not be used; a higher-res original from the owner remains the only way to add genuine detail.
+- **Reason:** Removes a second generation of lossy compression and gives the browser a larger source for its 1920w/2048w `srcset` candidates on big screens, without inventing or altering photo content.
+- **Consequences:** Lanczos + sharpening does **not** create real detail — it renders more cleanly than browser scaling but cannot match a true high-resolution original. If the owner supplies a larger authentic photo, replace `groupphoto2-upscaled.webp`. The q95 allowlist applies site-wide; other images can opt into higher quality explicitly. Pillow was used as a one-off local build tool only — it is not a project or runtime dependency and the 0 TND constraint is unaffected.
+
 ---
 
 ## Approval log
@@ -223,3 +236,4 @@
 | TD-21 | Library-free motion thesis | Approved by owner; build in Phase 8 | 19 Nov 2026 |
 | TD-22 | Tagline + brand-only hero | Approved by owner | 19 Nov 2026 |
 | TD-23 | `groupphoto2` hero + navy cast/scrim | Implemented at owner request; intensity under review | 19 Nov 2026 |
+| TD-24 | Hero image quality + 2× local upscale | Owner chose AI upscale; tool credential failed, faithful local upscale used | 19 Nov 2026 |

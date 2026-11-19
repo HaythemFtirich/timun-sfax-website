@@ -26,6 +26,13 @@
 - P3-T2/T3 nav (structure + Phase 8 scroll-solid), P3-T4 footer (P0-T11/P0-T12) remain blocked.
 - P3-T5 page transitions and shared empty/loading states deferred to Phase 8 / content phases.
 
+### Follow-up — hero image quality (same session)
+- Owner reported the hero photo looked low quality. Investigated: source is 1080×620 (all supplied JPGs are ≤1080 px), and Next.js 16's `images.qualities` default of `[75]` was recompressing the 173 KB original to ~89 KB.
+- Added `images.qualities: [75, 90, 95, 100]` to `next.config.ts` (v16 breaking change; unlisted `q` values return 400) and set `quality={95}` on the hero. Replaced deprecated `priority` with `preload` per the v16 image docs.
+- Owner chose AI super-resolution. The `experimental_image_generate` job failed with `Invalid credential`, so AI upscaling was not possible in this environment.
+- Installed Pillow locally (one-off tool, not a project dependency) and produced a faithful 2× upscale: 1080×620 → 2160×1240 via Lanczos + subtle unsharp mask, saved as WebP q95 (518 KB) at `public/images/hero/groupphoto2-upscaled.webp`. Swapped the hero to it; originals untouched.
+- `npm run lint`, `typecheck`, `build` all exit 0; live hero loads the q95 upscaled source with 1920w/2048w `srcset` candidates available. Touched `globals.css` after the build to avoid the known stale-CSS quirk.
+
 ---
 
 ## Session 04 — 19 November 2026 — Phase 2: Design System
