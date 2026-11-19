@@ -17,14 +17,14 @@ function PanelRule() {
 }
 
 /**
- * Mission, vision and values as an asymmetric dashboard — deliberately not
- * three equal cards. Mission and Vision each carry one authentic group photo.
- * All copy comes from src/content/about.ts.
+ * Mission, Vision and Values stacked one under the other — never side by side.
+ * Mission and Vision each carry one authentic group photo. All copy comes from
+ * src/content/about.ts.
  */
 export function Principles() {
   const statements = [
-    { ...mission, image: "/images/about/groupphoto5.jpg", wide: true },
-    { ...vision, image: "/images/about/groupphoto7.jpg", wide: false },
+    { ...mission, image: "/images/about/groupphoto5.jpg" },
+    { ...vision, image: "/images/about/groupphoto7.jpg" },
   ];
 
   return (
@@ -35,11 +35,11 @@ export function Principles() {
         headingId="principles-heading"
       />
 
-      <div className="mt-16 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-line bg-line lg:grid-cols-12">
+      <div className="mt-16 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-line bg-line">
         {statements.map((statement, i) => (
           <article
             key={statement.label}
-            className={`group ${panel} ${statement.wide ? "lg:col-span-7" : "lg:col-span-5"}`}
+            className={`group ${panel}`}
             data-reveal
             style={{ "--reveal-delay": `${i * 70}ms` } as CSSProperties}
           >
@@ -48,13 +48,7 @@ export function Principles() {
               {statement.label}
             </p>
 
-            <div
-              className={
-                statement.wide
-                  ? "mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:items-end"
-                  : "mt-10"
-              }
-            >
+            <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.75fr)] lg:items-end">
               <div>
                 <p className="font-display text-card font-bold leading-snug tracking-[var(--tracking-display)] text-foreground text-balance">
                   {statement.lead}
@@ -69,21 +63,16 @@ export function Principles() {
               <AnimatedFigure
                 src={statement.image}
                 alt="TIMUN Sfax group photograph"
-                sizes={
-                  statement.wide
-                    ? "(max-width: 1024px) 100vw, 26vw"
-                    : "(max-width: 1024px) 100vw, 36vw"
-                }
+                sizes="(max-width: 1024px) 100vw, 38vw"
                 caption={site.name}
-                aspect={statement.wide ? "aspect-[4/5]" : "aspect-[16/9]"}
-                className={statement.wide ? "" : "mt-10"}
+                aspect="aspect-[4/3]"
               />
             </div>
           </article>
         ))}
 
         <article
-          className={`group ${panel} lg:col-span-12`}
+          className={`group ${panel}`}
           data-reveal
           style={{ "--reveal-delay": "140ms" } as CSSProperties}
         >

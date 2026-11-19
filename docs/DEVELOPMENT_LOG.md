@@ -346,6 +346,14 @@ Removed `data-reveal` from the interactive year box so it is always fully visibl
 
 ---
 
+## Session 13 — 19 November 2026 — Stack Mission, Vision and Values
+
+- Owner requested the three panels be one under the other, not side by side.
+- Removed the 12-column grid and all `lg:col-span-*` classes from `src/components/sections/principles.tsx`; each panel is now a full-width row. Mission and Vision use the same two-column text/image inner layout with a `4/3` photo; Values stays full width below.
+- Verified in a fresh tab: Mission (top 4773), Vision (5917) and Values (6839) share the same left edge and width; no overflow, no console warnings. `lint`, `typecheck`, `build` pass.
+
+---
+
 ## Entry template for future sessions
 
 ```
