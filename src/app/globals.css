@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Phase 1 foundation tokens.
+   These navy/blue values are PLACEHOLDERS derived from the supplied logos.
+   They will be reviewed and finalized in Phase 2 (DESIGN_SYSTEM.md).
+   --------------------------------------------------------------------------- */
+:root {
+  --background: #071522;
+  --foreground: #f3f7fb;
+
+  --navy-deep: #071522;
+  --navy: #0d2338;
+  --navy-soft: #14304a;
+
+  --brand: #3e6589;
+  --brand-bright: #226bb4;
+  --brand-soft: #c1dfe8;
+
+  --muted: #a8bccf;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-navy-deep: var(--navy-deep);
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+
+  --color-brand: var(--brand);
+  --color-brand-bright: var(--brand-bright);
+  --color-brand-soft: var(--brand-soft);
+  --color-muted: var(--muted);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+/* Visible keyboard focus is required by the accessibility plan. */
+:focus-visible {
+  outline: 2px solid var(--brand-bright);
+  outline-offset: 3px;
+}
+
+/* Reduced-motion fallback established early so all later phases inherit it. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
