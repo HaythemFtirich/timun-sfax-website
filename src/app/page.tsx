@@ -1,21 +1,32 @@
-// DEVELOPMENT PLACEHOLDER — replaced in Phase 4 with owner-approved content.
-// No organizational facts are claimed here.
+// DEVELOPMENT PLACEHOLDER — public content remains content-gated (Phase 0).
+// The hero uses only the approved brand name and factual metadata copy.
+import { Hero } from "@/components/sections/hero";
 import { Button, Card, Section, SectionHeading } from "@/components/ui";
 
 export default function Home() {
   return (
-    <main className="flex-1">
+    <main id="main" className="flex-1">
+      <Hero />
+
+      <Section id="about" className="border-b border-line">
+        <SectionHeading
+          eyebrow="About"
+          title="TIMUN Sfax"
+          description="The Tunisian International Model United Nations club in Sfax, Tunisia."
+        />
+      </Section>
+
       <Section className="border-b border-line">
         <p className="font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-gold">
           Development preview
         </p>
-        <h1 className="mt-5 font-display text-hero font-extrabold leading-[0.95] tracking-[-0.055em] text-foreground text-balance">
-          TIMUN Sfax
-        </h1>
-        <p className="mt-8 max-w-[62ch] text-body-lg text-muted">
-          The approved dark editorial system is now in code: deep navy, warm
-          gold, Plus Jakarta Sans and Inter, and a 1280px container. Public
-          pages remain content-gated until approved copy and assets arrive.
+        <h2 className="mt-5 font-display text-display font-extrabold leading-[var(--leading-display)] tracking-[var(--tracking-display)] text-foreground text-balance">
+          The approved system is in code.
+        </h2>
+        <p className="mt-6 max-w-[62ch] text-body-lg text-muted">
+          Deep navy, warm gold, Plus Jakarta Sans and Inter, and a 1280px
+          container. Public pages stay content-gated until approved copy and
+          assets arrive.
         </p>
       </Section>
 

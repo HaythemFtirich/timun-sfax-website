@@ -4,6 +4,30 @@
 
 ---
 
+## Session 05 — 19 November 2026 — Phase 3: shared shell + `groupphoto2` hero
+
+**Owner request:** begin Phase 3 with a first screen like `https://enactustbs.com/?lang=en` — a full-bleed group photo with typography and a button over it, using the TIMUN Sfax logo and `groupphoto2`, made slightly bluish with an effect/overlay on top. Owner said "you do ur magic freely" and wants to watch live changes at `http://localhost:3000`.
+
+### Work done
+- Copied `assets/groupphoto2.jpg` (1080×620, original preserved) to `public/images/hero/groupphoto2.jpg` for web delivery.
+- Built `src/components/sections/hero.tsx`: full-viewport (`min-h-[100svh]`) hero with `next/image` (`fill`, `priority`, `sizes="100vw"`, `object-cover`), brand-name-only headline, factual mono eyebrow (`Tunisian International Model United Nations`), `Sfax, Tunisia` metadata, one gold `Discover TIMUN Sfax` CTA to `#about`, and a static scroll cue. No tagline in the hero (TD-22); no invented copy.
+- Studied the reference in-browser: its `figure` uses an `::after` radial gradient anchored bottom-left (`radial-gradient(52% 70% at 0% 100%, …)`) over a dark base. Adapted that technique to navy/gold in `.hero-scrim` in `src/app/globals.css` plus a navy `bg-surface-2/45 mix-blend-color` colour-cast layer and a soft bottom hand-off into the next section.
+- Added the global shell: `src/components/layout/site-header.tsx` (absolute, transparent, official white logo via `next/image` + `next/link`), a skip link and `#main` anchor in `src/app/layout.tsx`, and a styled `src/app/not-found.tsx`.
+- Reworked `src/app/page.tsx` so the homepage renders the hero, a factual `#about` section, and the existing development preview — no organizational claims published.
+
+### Verification
+- `npm run lint`, `npm run typecheck`, `npm run build` → all exit 0; seven static routes including `/_not-found`.
+- ESLint initially flagged the header's `<a href="/">`; fixed by switching to `next/link`.
+- Live browser at `http://localhost:3000`: title exactly `TIMUN Sfax`; hero = full viewport (670px in test viewport); `groupphoto2` served via `next/image`; `mix-blend-color` navy cast and radial `.hero-scrim` both computing; headline `TIMUN / Sfax`; gold CTA `Discover TIMUN Sfax`; skip link present; official logo in header; `/does-not-exist` renders `Page not found` with `Back to TIMUN Sfax`.
+- Encountered stale CSS once after `next build` against the live dev server; touching `globals.css` forced a clean recompile (same environment quirk as Session 04). Dev server left running.
+
+### Open items
+- Owner to eyeball the hero and request blue-cast/scrim intensity changes if desired.
+- P3-T2/T3 nav (structure + Phase 8 scroll-solid), P3-T4 footer (P0-T11/P0-T12) remain blocked.
+- P3-T5 page transitions and shared empty/loading states deferred to Phase 8 / content phases.
+
+---
+
 ## Session 04 — 19 November 2026 — Phase 2: Design System
 
 **Goal:** Lock the approved visual and motion direction in code and documentation, then obtain the headline/tagline decision.

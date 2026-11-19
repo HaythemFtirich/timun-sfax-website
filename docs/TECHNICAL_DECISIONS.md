@@ -192,6 +192,15 @@
 - **Reason:** Explicit owner choice following the presented options; keeps the hero content-safe until Phase 4 copy is approved.
 - **Consequences:** The tagline is approved content and may be used elsewhere when relevant. Other illustrative phrases in `docs/design-board.html` remain unpublished. Recorded in `DESIGN_SYSTEM.md` §12 and P0-T7/P2-T8.
 
+## TD-23 — Full-viewport `groupphoto2` hero treatment
+
+- **Status:** IMPLEMENTED (owner request, 19 Nov 2026); intensity subject to owner review. Hero pulled forward from P4-T1 into Phase 3.
+- **Problem:** Owner wanted a first entry page like `https://enactustbs.com/?lang=en` — a full-bleed group photo with typography and a button over it, made slightly bluish, using the TIMUN Sfax logo and `groupphoto2`, with live changes to review.
+- **Alternatives:** full image replacement/recolour of the source; left-aligned split layout; solid-colour overlay; leaving the photo untinted.
+- **Selected:** Copy `assets/groupphoto2.jpg` to `public/images/hero/groupphoto2.jpg` (originals untouched). Render it with `next/image` (`fill`, `priority`, `object-cover`) at `min-h-[100svh]`. Overlay a navy `bg-surface-2/45 mix-blend-color` colour-cast layer, then a `.hero-scrim` radial gradient anchored bottom-left plus a gentle top/bottom linear gradient, modelled on the reference's `::after` scrim but in the approved navy/gold palette. Brand-name-only headline, factual mono eyebrow, one gold CTA, static scroll cue; no tagline in the hero (TD-22).
+- **Reason:** Delivers the owner's desired cinematic first screen immediately with content-safe copy; reuses the approved palette; keeps the authentic photograph unaltered on disk; no dependency or heavy motion introduced (Phase 8 gate respected).
+- **Consequences:** The cast/scrim values are a starting point and may be tuned per owner feedback. The official white logo sits in a transparent absolute header (`src/components/layout/site-header.tsx`); scroll-reactive solid nav is deferred to Phase 8. No desktop/mobile navigation or footer was added — those remain gated on nav structure and P0-T11/P0-T12.
+
 ---
 
 ## Approval log
@@ -213,3 +222,4 @@
 | TD-20 | Palette, fonts and scale | Approved by owner | 19 Nov 2026 |
 | TD-21 | Library-free motion thesis | Approved by owner; build in Phase 8 | 19 Nov 2026 |
 | TD-22 | Tagline + brand-only hero | Approved by owner | 19 Nov 2026 |
+| TD-23 | `groupphoto2` hero + navy cast/scrim | Implemented at owner request; intensity under review | 19 Nov 2026 |

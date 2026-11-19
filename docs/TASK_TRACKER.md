@@ -2,7 +2,7 @@
 
 > **Legend:** `[ ]` Not started · `[x]` Completed · `[!]` Blocked / requires attention (see notes)
 > **Companion:** `MASTER_ROADMAP.md` (phase objectives and acceptance criteria), `SESSION_HANDOVER.md` (continuity).
-> **Last updated:** 19 November 2026 — Session 04 (Phase 2 design system).
+> **Last updated:** 19 November 2026 — Session 05 (Phase 3 shell + hero pulled forward).
 
 > **Rule:** A task is `[x]` only after its verification step has actually been performed and recorded. Owner-supplied content tasks remain `[!]` until the verified item is received — never simulate them with fabricated data.
 
@@ -88,18 +88,27 @@
 
 ## Phase 3 — Shared Layout & Navigation
 
-- [ ] **P3-T1** Root layout with default metadata and font loading.
-  - *Dependencies:* P2. *Verification:* metadata appears in page source.
-- [ ] **P3-T2** Desktop navigation (transparent over hero → solid on scroll; active states).
+> Owner request 19 Nov 2026: the `groupphoto2` hero (P4-T1) was pulled forward so it could be reviewed live. It was built in this session with only content-safe copy.
+
+- [x] **P3-T1** Root layout with default metadata and font loading.
+  - *Dependencies:* P2. *Verification:* `<title>` exactly `TIMUN Sfax`, Inter body + Plus Jakarta Sans headings and icon links confirmed in page source and live browser (Session 05).
+- [!] **P3-T2** Desktop navigation (transparent over hero → solid on scroll; active states).
   - *Dependencies:* P3-T1. *Verification:* behavior checked on a scrollable page.
-- [ ] **P3-T3** Accessible mobile menu.
+  - *Notes:* nav structure/routes not defined yet; scroll-reactive solid state belongs to Phase 8 motion gate.
+- [!] **P3-T3** Accessible mobile menu.
   - *Dependencies:* P3-T1. *Verification:* keyboard-only open/close/navigate; visible focus.
-- [ ] **P3-T4** Footer (logos, description, contact, quick links, partners, social, copyright).
+  - *Notes:* blocked on nav structure.
+- [!] **P3-T4** Footer (logos, description, contact, quick links, partners, social, copyright).
   - *Dependencies:* P0-T11, P0-T12, P2-T4. *Verification:* all links correct; partner grid loads.
+  - *Notes:* blocked until partner assets and contact/copyright details are supplied.
 - [ ] **P3-T5** Skip-to-content link and page transition wrapper.
   - *Dependencies:* P3-T1. *Verification:* skip link works via keyboard.
+  - *Notes:* skip link delivered and present in DOM (`#main`); page transition wrapper deferred to Phase 8.
 - [ ] **P3-T6** `not-found` (404) page and shared empty/loading states.
   - *Dependencies:* P3-T1. *Verification:* unknown route shows styled 404.
+  - *Notes:* styled 404 delivered and verified (`Page not found` + `Back to TIMUN Sfax`); shared empty/loading states arrive with their content phases.
+- [x] **P3-T7** Full-viewport `groupphoto2` hero, pulled forward from P4-T1 at owner request.
+  - *Dependencies:* P2-T4, P0-T7. *Verification:* 100svh hero, `groupphoto2` LCP image with `priority`, navy `mix-blend-color` cast + radial scrim active, brand-name-only headline, `Discover TIMUN Sfax` CTA, official logo in transparent header; all confirmed live and via `npm run lint/typecheck/build` (Session 05).
 
 ---
 

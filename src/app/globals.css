@@ -111,6 +111,28 @@
   }
 }
 
+@layer components {
+  /* Full-bleed hero photograph treatment: a navy colour cast, then a scrim
+     anchored bottom-left so the headline stays legible while the upper-right
+     of the photograph remains visible. Modelled on the reference site. */
+  .hero-scrim {
+    background:
+      radial-gradient(
+        95% 115% at 0% 100%,
+        rgba(7, 21, 34, 0.96) 0%,
+        rgba(7, 21, 34, 0.76) 38%,
+        rgba(7, 21, 34, 0.24) 74%,
+        rgba(7, 21, 34, 0) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(7, 21, 34, 0.36) 0%,
+        rgba(7, 21, 34, 0) 46%,
+        rgba(7, 21, 34, 0.52) 100%
+      );
+  }
+}
+
 /* ---------------------------------------------------------------------------
    Static fallbacks. Reduced motion (and the Phase 8 slow-connection switch)
    land every element in its finished, fully readable state. Content must

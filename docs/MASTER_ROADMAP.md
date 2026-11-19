@@ -140,15 +140,16 @@
 
 - **Objective:** A global shell — navigation, mobile menu, footer, transitions, and shared components — working across all routes.
 - **Dependencies:** Phase 2.
-- **Current status:** NOT STARTED.
+- **Current status:** IN PROGRESS — layout shell, hero, header and 404 delivered; nav/footer gated on content and Phase 8 motion.
+- **Owner request (19 Nov 2026):** the full-viewport `groupphoto2` hero (P4-T1) was pulled forward into this session so the owner could watch it live. It uses only the approved brand name and factual metadata; the tagline is deliberately excluded per TD-22.
 
 ### Tasks
-- **P3-T1** Root layout with default metadata and font loading.
-- **P3-T2** Desktop navigation (transparent over hero → solid navy on scroll; active states).
-- **P3-T3** Accessible mobile menu (keyboard operable, visible focus, no horizontal overflow).
-- **P3-T4** Footer (both logos, description, contact details, quick links, partner logos, social links, copyright).
-- **P3-T5** Skip-to-content link and page transition wrapper.
-- **P3-T6** Custom `not-found` (404) page and shared empty/loading states.
+- **P3-T1** Root layout with default metadata and font loading. — **DONE** (verified in page source and browser; metadata/fonts already established in P1/P2).
+- **P3-T2** Desktop navigation (transparent over hero → solid navy on scroll; active states). — **BLOCKED**: nav structure/routes not yet defined; scroll-solid transition belongs to Phase 8.
+- **P3-T3** Accessible mobile menu (keyboard operable, visible focus, no horizontal overflow). — **BLOCKED**: depends on nav structure.
+- **P3-T4** Footer (both logos, description, contact details, quick links, partner logos, social links, copyright). — **BLOCKED** on P0-T11 / P0-T12.
+- **P3-T5** Skip-to-content link and page transition wrapper. — **PARTIAL**: skip link done and verified; page transition wrapper deferred to Phase 8.
+- **P3-T6** Custom `not-found` (404) page and shared empty/loading states. — **PARTIAL**: styled 404 done and verified; shared empty/loading states to arrive with their content phases.
 
 ### Expected deliverables
 - Working global layout and navigation system.
@@ -168,7 +169,7 @@
 - **Current status:** BLOCKED — approved English copy, tagline decision, and verified history not yet supplied.
 
 ### Tasks
-- **P4-T1** Home: hero with large photo, dark-blue overlay, headline, intro, "Discover TIMUN Sfax" CTA.
+- **P4-T1** Home: hero with large photo, dark-blue overlay, headline, intro, "Discover TIMUN Sfax" CTA. — **photo/treatment delivered early in Phase 3** at owner request (see above); intro/description copy still awaits P0-T6.
 - **P4-T2** Home: About preview + national affiliation explanation.
 - **P4-T3** Home: mission/vision/values blocks (approved wording only).
 - **P4-T4** Home: Executive Board preview (structure only; real verified members when supplied).
