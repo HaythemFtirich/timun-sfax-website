@@ -27,6 +27,7 @@ export function InteractiveTimeline() {
   const railRef = useRef<HTMLOListElement>(null);
   const dragRef = useRef<{ x: number; y: number } | null>(null);
   const movedRef = useRef(false);
+  const holdUntilRef = useRef(0);
   const current = timeline[active];
 
   useEffect(() => {
@@ -41,6 +42,8 @@ export function InteractiveTimeline() {
 
     const update = () => {
       frame = 0;
+      // Let a tap's in-place year change settle before scroll takes over again.
+      if (performance.now() < holdUntilRef.current) return;
       const rect = rail.getBoundingClientRect();
       const marker = window.innerHeight * 0.45;
       const progress = clamp(
@@ -137,10 +140,25 @@ export function InteractiveTimeline() {
     setDragging(false);
   };
 
-  /** A tap (not a drag) advances the year to the next milestone. */
+  /**
+   * A tap advances the box to the next milestone without scrolling the page —
+   * scrolling would slide this sticky box out of view, which looked like it
+   * disappeared. The short hold stops the scroll listener snapping it back.
+   */
+  const advanceInPlace = (index: number) => {
+    const next = clamp(index, 0, timeline.length - 1);
+    holdUntilRef.current = performance.now() + 900;
+    railRef.current?.style.setProperty(
+      "--timeline-progress",
+      ((next + 0.5) / timeline.length).toFixed(4),
+    );
+    setActive(next);
+  };
+
+  /** A tap (not a drag) advances the box in place. */
   const onClickAdvance = () => {
     if (movedRef.current) return;
-    scrollToIndex((active + 1) % timeline.length);
+    advanceInPlace((active + 1) % timeline.length);
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -173,7 +191,6 @@ export function InteractiveTimeline() {
             "year-scrub self-start rounded-[var(--radius-md)] border border-line bg-surface/30 p-6 lg:sticky lg:top-32 lg:p-8",
             dragging && "is-dragging",
           )}
-          data-reveal
           role="slider"
           tabIndex={0}
           aria-label="Timeline milestones — scroll, drag sideways or use arrow keys"

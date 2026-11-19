@@ -260,6 +260,15 @@
 | TD-26 | Timeline + numbers dashboard + native motion | Owner request; built under TD-21 library-free thesis | 19 Nov 2026 |
 | TD-27 | Scroll/drag timeline decoupled + closing tile + Mission/Vision photos | Owner polish request; implemented and browser-verified | 19 Nov 2026 |
 | TD-28 | Drag drives page scroll + tap advances year | Owner clarification; implemented and browser-verified | 19 Nov 2026 |
+| TD-29 | Year box never hidden by scroll reveal | Owner bug report; implemented and browser-verified | 19 Nov 2026 |
+
+## TD-29 — Interactive year box never hidden by scroll reveal
+
+- **Status:** IMPLEMENTED (owner clarification, 19 Nov 2026).
+- **Problem:** the "Click · drag" box under "Five moments. One movement." carried `data-reveal`, so it began at `opacity: 0` and faded in only after the observer fired. The owner saw it as disappearing when pressed. Clicking also scrolled the page, which slid the sticky box out of view.
+- **Selected:** removed `data-reveal` from the interactive `.year-scrub` control so it is always fully visible. A tap now advances the year **in place** (`advanceInPlace`) with no page scroll; a 900ms `holdUntilRef` guard stops the scroll listener snapping it back. Drag still scrolls the page and moves the rail (TD-28).
+- **Reason:** interactive controls must never be hidden by entrance animation, and the owner expects a click to change the box, not move the page.
+- **Consequences:** verified in a fresh tab — five consecutive taps advanced 2009 → April 2010 → 2012 → 2015 → 2018 → 2009 with box opacity constant at `1`, box position unchanged, and `scrollY` unchanged.
 
 ## TD-28 — Drag drives page scroll; tap advances the year
 

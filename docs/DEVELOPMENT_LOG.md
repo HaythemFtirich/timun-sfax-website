@@ -323,6 +323,21 @@ Owner eyeball check on `http://localhost:3000`, then local commit (no remote, no
 
 ---
 
+## Session 11 — 19 November 2026 — Click/drag box no longer disappears
+
+**Goal:** owner bug report — the "Click · drag" box under "Five moments. One movement." disappears when pressed instead of advancing to the next year.
+
+### Root cause
+The box carried `data-reveal`, so it started at `opacity: 0` and only faded in after the IntersectionObserver fired; clicking also called `scrollToIndex`, which scrolled the page and slid the sticky box out of view.
+
+### Fix
+Removed `data-reveal` from the interactive year box so it is always fully visible. A tap now calls `advanceInPlace` — it changes the year, description, traveller and rail fill without scrolling the page — and a short `holdUntilRef` guard prevents the scroll listener from snapping it back. Horizontal drag still scrolls the page and moves the rail.
+
+### Verification
+`lint`, `typecheck`, `build` pass. Fresh tab: five taps advanced 2009 → April 2010 → 2012 → 2015 → 2018 → 2009; box opacity stayed `1`, `boxTop` stayed `150px`, `scrollY` stayed `7129`.
+
+---
+
 ## Entry template for future sessions
 
 ```
