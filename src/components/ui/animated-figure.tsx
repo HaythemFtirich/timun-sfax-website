@@ -1,11 +1,16 @@
 import Image from "next/image";
+import { T } from "@/components/i18n";
+import {
+  asLocalizedText,
+  type LocalizedTextInput,
+} from "@/lib/i18n";
 import { cn } from "@/lib/cn";
 
 type AnimatedFigureProps = {
   src: string;
-  alt: string;
+  alt: LocalizedTextInput;
   sizes: string;
-  caption: string;
+  caption: LocalizedTextInput;
   /** Tailwind aspect-ratio utility, e.g. "aspect-[4/5]". */
   aspect?: string;
   preload?: boolean;
@@ -26,6 +31,8 @@ export function AnimatedFigure({
   preload = false,
   className,
 }: AnimatedFigureProps) {
+  const altText = asLocalizedText(alt);
+
   return (
     <figure className={cn("group", className)} data-reveal>
       <div
@@ -36,7 +43,10 @@ export function AnimatedFigure({
       >
         <Image
           src={src}
-          alt={alt}
+          alt={altText.en}
+          data-i18n-attr="alt"
+          data-i18n-alt-en={altText.en}
+          data-i18n-alt-fr={altText.fr}
           fill
           sizes={sizes}
           preload={preload}
@@ -48,11 +58,13 @@ export function AnimatedFigure({
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gold-bright transition-transform duration-[var(--duration-fast)] ease-[var(--ease)] group-hover:scale-x-100"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gold-bright transition-transform duration-[var(--duration-fast)] group-hover:scale-x-100"
         />
       </div>
       <figcaption className="mt-4 flex items-center justify-between font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-muted">
-        <span>{caption}</span>
+        <span>
+          <T value={caption} />
+        </span>
         <span
           aria-hidden="true"
           className="text-gold transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"

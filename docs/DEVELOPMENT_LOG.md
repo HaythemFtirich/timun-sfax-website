@@ -354,6 +354,40 @@ Removed `data-reveal` from the interactive year box so it is always fully visibl
 
 ---
 
+## Session 14 — 19 November 2026 — Phase 5 events started (supplied data only)
+
+**Goal:** begin Phase 5 Events using the three owner-supplied events; leave pictures/gallery for a later stage when images are provided.
+
+### Tasks completed
+- Added `src/content/events.ts` as the single source of approved event data for GeekMUN, The Great MUN and RedMUN (title, description, date, location) exactly as supplied by the owner; no invented facts, durations, outcomes, or placeholders.
+- Built `/events` with an editorial typographic card grid and statically generated `/events/[slug]` detail pages (`generateStaticParams`, metadata, 404 for unknown slugs). Added an Events section on Home and an Events link in the primary navigation.
+- Kept click-through gallery/images explicitly out of scope until the owner supplies photographs.
+
+### Files created / modified
+- Created: `src/content/events.ts`, `src/app/events/page.tsx`, `src/app/events/[slug]/page.tsx`.
+- Modified: `src/components/layout/site-header.tsx`, `src/app/page.tsx`, `src/app/globals.css` (touched for dev recompile after builds), `docs/MASTER_ROADMAP.md`, `docs/TASK_TRACKER.md`, `docs/SESSION_HANDOVER.md`, `docs/DEVELOPMENT_LOG.md`, `docs/TECHNICAL_DECISIONS.md`.
+
+### Problems encountered and solutions
+- **Next.js 16 Cache Components dev error on detail route:** an initial implementation triggered "params accessed outside of `<Suspense>`" in dev for `/events/[slug]`. Fixed by moving params-reading/detail rendering into a Suspense-wrapped async component while keeping `generateStaticParams` prerendering for the three known events.
+
+### Verification / tests performed
+- `npm run lint`, `npm run typecheck`, and `npm run build` all exit 0.
+- Build prerendered `/events`, `/events/geekmun`, `/events/the-great-mun`, and `/events/redmun`.
+- Fresh browser checks: Home shows Events nav and three event cards with correct dates/locations/links; `/events` lists all three; `/events/geekmun` renders the supplied title/date/location/description and back links; no horizontal overflow and no console errors/warnings after the Suspense fix. Dev server left running at `http://localhost:3000`.
+
+### Known open items
+- P5-T4/P5-T5: owner must supply event photographs and confirm gallery behavior before adding click-through galleries/images.
+- P0-T8 remains open for selected photographs and any additional events.
+- Other blockers unchanged: P0-T9–P0-T12, P4-T4 board preview, footer, Phase 8/9/10 work.
+
+### Next steps
+1. Owner reviews Events on Home, `/events`, and each detail page at `http://localhost:3000`.
+2. When the owner supplies event pictures, extend the event model/content and implement accessible click-through galleries (no placeholders).
+3. Commit this Phase 5 work locally (no remote, no push) after owner review if desired.
+4. Continue collecting remaining owner content (board, partners, contact, study guides).
+
+---
+
 ## Entry template for future sessions
 
 ```

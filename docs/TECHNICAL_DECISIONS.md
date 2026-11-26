@@ -261,6 +261,7 @@
 | TD-27 | Scroll/drag timeline decoupled + closing tile + Mission/Vision photos | Owner polish request; implemented and browser-verified | 19 Nov 2026 |
 | TD-28 | Drag drives page scroll + tap advances year | Owner clarification; implemented and browser-verified | 19 Nov 2026 |
 | TD-29 | Year box never hidden by scroll reveal | Owner bug report; implemented and browser-verified | 19 Nov 2026 |
+| TD-30 | Phase 5 events start with supplied data only | Owner-supplied event details; photos/gallery pending | 19 Nov 2026 |
 
 ## TD-29 — Interactive year box never hidden by scroll reveal
 
@@ -284,3 +285,11 @@
 - **Selected:** scroll drives `--timeline-progress` through one rAF pass; drag/keyboard update the active year and the CSS variable directly and set `manualRef`, without calling `scrollIntoView` or `window.scrollTo`. The next real scroll clears `manualRef` and resumes scroll-driven tracking.
 - **Reason:** `scrollIntoView` centred milestones at 50% of the viewport while the scroll marker uses 45%, and a React-reapplied inline `--timeline-progress: 0` overwrote the imperative value on every render. Decoupling removes both conflicts and prevents page jumps during scrub.
 - **Consequences:** the traveller and filled rail track scroll exactly in both directions; left/right scrub moves the big year instantly. CSS transitions on custom-property `calc()` values were removed because they caused a slow crawl — scroll itself supplies per-frame smoothness. Added `And the journey continues.` to the last numbers grid cell (wording awaiting owner confirmation) and one owner-supplied group photo each to Mission (`groupphoto4.jpg`) and Vision (`groupphoto7.jpg`). No dependency installed; 0 TND constraint intact.
+
+## TD-30 — Phase 5 events start with owner-supplied data only
+
+- **Status:** IMPLEMENTED (initial scope, 19 Nov 2026).
+- **Problem:** the owner asked to begin Phase 5 with three supplied events and to add pictures/gallery later when each event is clicked; no invented facts or placeholders are allowed.
+- **Selected:** added `src/content/events.ts` as the single source for event data (slug, title, description, date, location) containing only GeekMUN, The Great MUN and RedMUN exactly as supplied. Implemented `/events`, statically generated `/events/[slug]` detail pages, an Events section on Home, and an Events link in the primary nav. No gallery, image fields or placeholder assets were added.
+- **Technical note:** in Next.js 16 with Cache Components, the event detail route wraps params access in `<Suspense>` to satisfy dev/prerender params handling while keeping all three known routes statically prerendered via `generateStaticParams`.
+- **Consequences:** P5-T1/T2/T3 and current-data P5-T6 are complete for these three events; P5-T4/P5-T5 remain held until the owner supplies photographs and approves gallery behavior. Any new event or image must be added to `src/content/events.ts` (and the model extended as needed) only from owner-supplied material.

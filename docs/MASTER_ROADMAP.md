@@ -26,12 +26,12 @@
 | 0 | Content Readiness & Asset Audit (continuous) | IN PROGRESS | Owner adds content/assets incrementally |
 | 1 | Project Setup (Next.js + TS + Tailwind + local Git) | COMPLETED | Owner accepted Phase 1 |
 | 2 | Design System | REVIEW REQUIRED | Implementation verified; awaiting owner sign-off on `DESIGN_SYSTEM.md` |
-| 3 | Shared Layout & Navigation | NOT STARTED | Phase 2 |
-| 4 | Home & About | BLOCKED | Phase 3; approved copy, tagline, verified history |
-| 5 | Events Overview & Detail | BLOCKED | Phase 3; verified event data + photos |
+| 3 | Shared Layout & Navigation | IN PROGRESS | Footer/contact/partner content (P0-T11/P0-T12), Phase 8 motion items |
+| 4 | Home & About | IN PROGRESS | Board preview held on P0-T10 |
+| 5 | Events Overview & Detail | IN PROGRESS | Event photographs/gallery assets pending (P0-T8) |
 | 6 | Study Guides Library | BLOCKED | Phase 3; final PDFs + metadata |
 | 7 | Executive Board & Contact | BLOCKED | Phase 3; board data, contact details, URLs |
-| 8 | Motion & Polish | NOT STARTED | Phases 4–7 structure |
+| 8 | Motion & Polish | IN PROGRESS | Phases 4–7 structure; owner-approved pull-forward work underway |
 | 9 | SEO, Accessibility, Performance & QA | NOT STARTED | Phase 8 |
 | 10 | Deployment & Handover | NOT STARTED | Phase 9; owner GitHub/Vercel accounts (pushed at final stage) |
 
@@ -194,15 +194,15 @@
 
 - **Objective:** Editorial events gallery and individual event templates using only verified events.
 - **Dependencies:** Phase 3; P0-T8.
-- **Current status:** BLOCKED — verified event data and selected photographs not yet supplied.
+- **Current status:** IN PROGRESS — owner supplied three events on 19 Nov 2026 (GeekMUN, The Great MUN, RedMUN). `/events`, detail routes and Home/nav surfacing are implemented with only the supplied details. Photographs and a click-through gallery are held until the owner supplies images; no placeholders or invented facts.
 
 ### Tasks
-- **P5-T1** Define event content model (title, slug, overview, date, location, duration, gallery).
-- **P5-T2** Build `/events` editorial photographic grid.
-- **P5-T3** Build `/events/[slug]` detail template with static params from content.
-- **P5-T4** Build accessible photo gallery with slideshow controls.
-- **P5-T5** Optimize event imagery and add meaningful alt text.
-- **P5-T6** Verify every published event's data against owner-approved source.
+- **P5-T1** Define event content model (title, slug, overview, date, location, duration, gallery). — **DONE (initial):** `src/content/events.ts` covers slug, title, description, date, location for the three supplied events; extend with duration/gallery/image fields when assets arrive.
+- **P5-T2** Build `/events` editorial photographic grid. — **DONE (typographic, photos pending):** editorial card grid on `/events` and a matching Events section on Home; photographic treatment held on P5-T5.
+- **P5-T3** Build `/events/[slug]` detail template with static params from content. — **DONE:** static params for all three events, metadata, approved detail content, 404 fallback for unknown slugs.
+- **P5-T4** Build accessible photo gallery with slideshow controls. — **HELD:** owner will add pictures/gallery later.
+- **P5-T5** Optimize event imagery and add meaningful alt text. — **HELD:** no event images supplied yet.
+- **P5-T6** Verify every published event's data against owner-approved source. — **DONE (current entries):** all three match the 19 Nov 2026 owner-supplied details; re-verify on additions.
 
 ### Expected deliverables
 - `/events` and the `/events/[slug]` template with approved entries.

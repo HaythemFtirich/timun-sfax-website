@@ -1,78 +1,76 @@
-# TIMUN Sfax Website
+# TIMUN Sfax — official website
 
-Official English-language informational website for **TIMUN Sfax** (Tunisian International Model United Nations — Sfax).
+A fast, bilingual informational website for **TIMUN Sfax** (Tunisian International Model United Nations — Sfax). Built as a static Next.js application with an editorial visual system, accessible interactions and no paid dependencies.
 
-> **Current status (19 November 2026):** **Phase 1 — Project Setup (in progress).** Next.js application, Tailwind foundations, folder structure and local Git repository are in place. No public pages yet; content arrives in Phase 4.
+## What is included
 
-## Planned stack
+- **Responsive public site** — home, events and event details, executive board, study guides, socials and partner pages.
+- **English/French switcher** — English is the server-rendered default. French is persisted in `localStorage` under `timun-language` and applied before paint without adding routes or changing the current URL. Navigation, headings, body copy, buttons, form messages, placeholders, `alt` text, `aria-label`s, titles and slider values are translated.
+- **Accessible motion** — `prefers-reduced-motion` and `html[data-motion="static"]` land every element in its finished, readable state. The shared interaction token is `180ms`.
+- **Stable form plumbing** — the existing Google Forms endpoints and all `entry.*` identifiers and choice values are preserved; the site only translates the visible labels and status messages.
+- **Self-hosted assets** — local fonts and optimized images/PDFs; no external font or CSS requests.
 
-Next.js 16 (App Router, TypeScript) · Tailwind CSS v4 + custom CSS · Motion (Framer Motion) + GSAP/ScrollTrigger + CSS animations · static content in the repository · GitHub → Vercel (free plan) · **0 TND budget** · English only.
+## Stack
+
+| Layer | Choice |
+| --- | --- |
+| Framework | Next.js 16 App Router, React 19, TypeScript |
+| Styling | Tailwind CSS 4 + a custom design-token stylesheet |
+| Animation | CSS transitions, IntersectionObserver reveal, GSAP/Motion where already used |
+| Content | Typed static records in `src/content/` |
+| i18n | Dependency-free render-time text pairs + persisted client language state |
+| Hosting target | Vercel free tier via GitHub; no paid services (enable Git LFS in the Vercel project settings so the study-guide PDFs are fetched during builds) |
 
 ## Local setup
 
-Requirements: Node.js 20.9+ (Node 26 verified locally) and npm.
+Requirements: Node.js 20.9+ and npm.
 
 ```powershell
-cd 'C:\Users\DELL\Desktop\timun sfax'
 npm install
+git lfs pull
 npm run dev
 ```
 
-Open <http://localhost:3000>. Expect the temporary "Project foundation ready" placeholder page — this is intentional until Phase 4.
+`git lfs pull` replaces the checked-in PDF pointers with the real study-guide files. Open <http://localhost:3000>. The browser tab title on the home page is exactly **TIMUN Sfax**.
 
-## Verification commands
+## Verification
 
 Run all three before every commit:
 
 ```powershell
-npm run lint        # ESLint (Next.js 16 uses the ESLint CLI directly)
-npm run typecheck   # TypeScript, no output files
-npm run build       # production build (Turbopack)
+npm run lint
+npm run typecheck
+npm run build
 ```
 
-All must exit with code 0.
+All commands must exit with code `0`. `npm run typecheck` generates Next.js route types and runs `tsc --noEmit`.
 
-## Project layout
+## Project structure
 
 | Path | Purpose |
 | --- | --- |
-| `src/app/` | Routes, root layout, global CSS, app icons |
-| `src/components/{layout,navigation,sections,cards,galleries,ui}` | Reusable UI |
-| `src/content/` | Structured static content (added by owner per phase) |
-| `src/lib/` | Metadata and small shared helpers |
+| `src/app/` | Routes, root layout, metadata, global CSS and icons |
+| `src/components/layout/` | Header, menu, footer and theme control |
+| `src/components/sections/` | Home-page and partner-page sections |
+| `src/components/i18n/` | Language store, toggle, text renderer and attribute runtime |
+| `src/components/ui/` | Shared headings, figures, cards and social links |
+| `src/content/` | Bilingual copy and structured event/member/guide data |
+| `src/lib/` | Shared i18n and metadata helpers |
 | `public/images/` | Optimized branding, photography and event imagery |
-| `public/documents/study-guides/` | Approved PDFs |
-| `assets/` | Owner-supplied originals — archive only, never overwritten |
-| `docs/` | Project management documentation |
+| `public/documents/study-guides/` | Approved study-guide PDFs |
+| `docs/` | Project management and decision records |
+| `assets/` | Owner-supplied originals — archive only |
+
+## Content and preservation rules
+
+The approved source of factual copy is `docs/PHASE4_CONTENT_PROPOSAL.md`; French is a faithful rendering of that copy. Names, dates, figures, official URLs, social handles, contact details, PDF filenames and Google Forms identifiers are intentionally left untouched. No analytics, ads, trackers or paid APIs are included.
 
 ## Branding note
 
-`timunsfaxlogo.png` is the official mark and the source of the site icon. Only fully transparent padding was removed — the exact content bounds of every non-transparent pixel are `(326,251)–(1582,1181)` = **1257×931** — and the result was padded with transparency to a **1257×1257 square**. Every non-transparent pixel is preserved byte-for-byte. The official colour logo on a **fully transparent background** is used for the browser-tab icon set (`icon.png`, `icon1.png`, `icon2.png`, `icon3.png` at 512/64/32/16 px) and `apple-icon.png` (180 px). The browser tab title is exactly **TIMUN Sfax**. Originals remain untouched in `assets/`.
+The official colour mark is the source of the browser icon set. Only fully transparent padding was removed from the original; all non-transparent pixels were preserved and re-padded to a square. Originals remain untouched in `assets/`.
 
-## Git workflow (current agreement)
+## Repository
 
-Commits are **local only**. There is no remote yet; pushing to GitHub is deferred to the final deployment stage.
+Source: <https://github.com/HaythemFtirich/timun-sfax-website.git>
 
-```powershell
-git add .
-git commit -m "Phase 1: project setup"
-```
-
-## Documentation
-
-Full project management lives in `docs/`:
-
-| File | Purpose |
-| --- | --- |
-| [PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md) | Scope, confirmed decisions, sitemap, content inventory |
-| [MASTER_ROADMAP.md](docs/MASTER_ROADMAP.md) | Phases, dependencies, acceptance criteria, status |
-| [TASK_TRACKER.md](docs/TASK_TRACKER.md) | Detailed tasks with IDs and verification |
-| [DEVELOPMENT_LOG.md](docs/DEVELOPMENT_LOG.md) | Session record |
-| [TECHNICAL_DECISIONS.md](docs/TECHNICAL_DECISIONS.md) | Decision register |
-| [DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) | Visual foundations (draft) |
-| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Structure and technical conventions |
-| [TESTING_PLAN.md](docs/TESTING_PLAN.md) | QA coverage |
-| [DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md) | Future GitHub → Vercel setup |
-| [SESSION_HANDOVER.md](docs/SESSION_HANDOVER.md) | Continuity snapshot |
-
-**Source of truth:** `TIMUN_Sfax_Website_Project_Documentation.docx` (kept locally, ignored by Git).
+Deployment is handled outside the repository through GitHub → Vercel. Environment-specific values such as `NEXT_PUBLIC_SITE_URL` are optional and supplied at build time.

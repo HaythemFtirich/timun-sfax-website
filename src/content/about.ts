@@ -4,80 +4,127 @@
  * Provenance:
  * - National TIMUN history, TIMUN Sfax history and the six objectives are
  *   faithful English renderings of TIMUN_Sfax_Website_Project_Documentation.docx
- *   §2.1–2.2, which the owner approved on 19 Nov 2026.
+ *   §2.1–2.2, which the owner approved on 19 Nov 2026. The French layer is a
+ *   faithful rendering of that same approved copy; no facts are added.
  * - The vision statement and the short value descriptions are original English
  *   copy written at the owner's request ("do ur magic on vision, mission and
  *   values"). They add no facts, dates, names, figures or endorsements.
  * - No other organizational claims are published anywhere in this module.
  */
+import { bilingual } from "@/lib/i18n";
 
 export const nationalTimun = {
-  eyebrow: "National affiliation",
+  eyebrow: bilingual("National affiliation", "Affiliation nationale"),
   name: "TIMUN",
   fullName: "Tunisian International Model United Nations",
-  lead: "TIMUN stands for Tunisian International Model United Nations. It was created in 2009 as a club at the Faculty of Legal, Political and Social Sciences of Tunis.",
   paragraphs: [
-    "Its objective is to promote the purposes and principles of the United Nations and to strengthen young students' skills.",
-    "In 2012 the national organization expanded by establishing clubs throughout Tunisia. Today it brings together 20 TIMUN clubs nationwide.",
-    "TIMUN organized the first United Nations simulation conference in Tunisia and the Maghreb in April 2010. Since 2015 it has been under the High Patronage of the Ministry of Foreign Affairs, and it submitted a final simulation report containing committee resolutions to the Tunisian government.",
+    bilingual(
+      "Created at the Faculty of Legal, Political and Social Sciences of Tunis, TIMUN promotes the purposes and principles of the United Nations while strengthening students skills. It organized the first UN simulation conference in Tunisia and the Maghreb in 2010, and today unites 20 clubs nationwide under the High Patronage of the Ministry of Foreign Affairs.",
+      "Créé à la Faculté de droit, de sciences politiques et sociales de Tunis, TIMUN promeut les buts et principes des Nations unies tout en renforçant les compétences des étudiants. Il a organisé la première conférence de simulation des Nations unies en Tunisie et au Maghreb en 2010 et rassemble aujourd'hui 20 clubs à travers le pays sous le Haut Patronage du ministère des Affaires étrangères.",
+    ),
   ],
 } as const;
 
 export const sfaxHistory = {
-  eyebrow: "Our chapter",
+  eyebrow: bilingual("Our club", "Notre club"),
   name: "TIMUN Sfax",
-  lead: "The first Model United Nations conference in Sfax was organized in 2018.",
+  lead: bilingual(
+    "TIMUN Sfax was founded in 2018, following the success of the first Model United Nations conference held in the city.",
+    "TIMUN Sfax a été fondé en 2018, suite au succès de la première conférence de simulation des Nations unies tenue dans la ville.",
+  ),
   paragraphs: [
-    "Following its success, the national organization accepted the launch of a TIMUN club in Sfax, founded in 2018.",
-    "The chapter promotes the objectives and values of the United Nations Charter through high-level academic simulations, and through the study and practice of formal diplomacy.",
+    bilingual(
+      "As part of the national TIMUN network, our club promotes the objectives and values of the United Nations Charter through high-level academic simulations and the practice of formal diplomacy, giving students a place to grow as speakers, negotiators and leaders.",
+      "Au sein du réseau national TIMUN, notre club promeut les objectifs et les valeurs de la Charte des Nations unies à travers des simulations académiques de haut niveau et la pratique de la diplomatie formelle, offrant aux étudiants un espace pour se développer comme orateurs, négociateurs et leaders.",
+    ),
   ],
 } as const;
 
 export const mission = {
-  label: "Mission",
-  lead: "TIMUN Sfax promotes the objectives and values of the United Nations Charter.",
-  paragraphs: [
-    "We organize high-level academic simulations that replicate United Nations conferences, bodies and agencies — roundtables, discussions, negotiations and debates.",
-    "We encourage open-mindedness, cooperation and cultural exchange among students, and encourage young people to engage with their surroundings and act for their region, their country and humanity.",
-    "Our activities familiarize students with United Nations structures and complement theoretical knowledge with practical experience, developing analytical, negotiation and rhetorical skills through formal diplomatic language.",
+  label: bilingual("Mission", "Mission"),
+  lead: bilingual(
+    "TIMUN Sfax promotes the objectives and values of the United Nations Charter.",
+    "TIMUN Sfax promeut les objectifs et les valeurs de la Charte des Nations unies.",
+  ),
+  bullets: [
+    bilingual(
+      "Academic simulations of UN conferences and bodies",
+      "Simulations académiques de conférences et d'organes des Nations unies",
+    ),
+    bilingual(
+      "Cooperation and cultural exchange among students",
+      "Coopération et échange culturel entre étudiants",
+    ),
+    bilingual(
+      "Young people acting for their region, country and humanity",
+      "Des jeunes qui agissent pour leur région, leur pays et l'humanité",
+    ),
+    bilingual(
+      "Analytical, negotiation and rhetorical skills through diplomatic language",
+      "Compétences analytiques, de négociation et de rhétorique à travers la langue diplomatique",
+    ),
   ],
 } as const;
 
 export const vision = {
-  label: "Vision",
-  lead: "To make Model United Nations a lasting part of Tunisia's student landscape.",
+  label: bilingual("Vision", "Vision"),
+  lead: bilingual(
+    "To make Model United Nations a lasting part of Tunisia's student landscape.",
+    "Faire du modèle des Nations unies une part durable du paysage étudiant tunisien.",
+  ),
   paragraphs: [
-    "A place where young people learn to argue with precision, to listen across difference, and to carry the habits of diplomacy beyond the conference room.",
+    bilingual(
+      "A place where young people learn to argue with precision, to listen across difference, and to carry the habits of diplomacy beyond the conference room.",
+      "Un lieu où les jeunes apprennent à argumenter avec précision, à écouter malgré les différences et à emporter les habitudes de la diplomatie au-delà de la salle de conférence.",
+    ),
   ],
 } as const;
 
 /** Derived from the supplied objectives; wording written at owner request. */
 export const values = {
-  label: "Values",
+  label: bilingual("Values", "Valeurs"),
   items: [
     {
-      title: "Open-mindedness",
-      description: "We make room for perspectives that challenge our own.",
+      title: bilingual("Open-mindedness", "Ouverture d'esprit"),
+      description: bilingual(
+        "We make room for perspectives that challenge our own.",
+        "Nous faisons place à des points de vue qui remettent en question les nôtres.",
+      ),
     },
     {
-      title: "Cooperation",
-      description: "Diplomacy is built with others, not against them.",
+      title: bilingual("Cooperation", "Coopération"),
+      description: bilingual(
+        "Diplomacy is built with others, not against them.",
+        "La diplomatie se construit avec les autres, pas contre eux.",
+      ),
     },
     {
-      title: "Cultural exchange",
-      description: "Every delegation brings a different context to the table.",
+      title: bilingual("Cultural exchange", "Échange culturel"),
+      description: bilingual(
+        "Every delegation brings a different context to the table.",
+        "Chaque délégation apporte un contexte différent à la table.",
+      ),
     },
     {
-      title: "Civic engagement",
-      description: "What is debated in committee should matter beyond it.",
+      title: bilingual("Civic engagement", "Engagement citoyen"),
+      description: bilingual(
+        "What is debated in committee should matter beyond it.",
+        "Ce qui est débattu en commission doit compter au-delà.",
+      ),
     },
     {
-      title: "Practical learning",
-      description: "Understanding grows through doing as well as through reading.",
+      title: bilingual("Practical learning", "Apprentissage par la pratique"),
+      description: bilingual(
+        "Understanding grows through doing as well as through reading.",
+        "La compréhension grandit par la pratique autant que par la lecture.",
+      ),
     },
     {
-      title: "Diplomatic communication",
-      description: "Precision, respect and formal language shape how ideas are heard.",
+      title: bilingual("Diplomatic communication", "Communication diplomatique"),
+      description: bilingual(
+        "Precision, respect and formal language shape how ideas are heard.",
+        "La précision, le respect et le langage formel façonnent la façon dont les idées sont entendues.",
+      ),
     },
   ],
 } as const;
@@ -86,31 +133,45 @@ export const values = {
 export const timeline = [
   {
     year: "2009",
-    title: "TIMUN is founded",
-    description:
+    title: bilingual("TIMUN is founded", "Fondation de TIMUN"),
+    description: bilingual(
       "A club is created at the Faculty of Legal, Political and Social Sciences of Tunis.",
+      "Un club est créé à la Faculté de droit, de sciences politiques et sociales de Tunis.",
+    ),
   },
   {
     year: "April 2010",
-    title: "The first simulation conference",
-    description:
+    title: bilingual(
+      "The first simulation conference",
+      "La première conférence de simulation",
+    ),
+    description: bilingual(
       "TIMUN organizes the first United Nations simulation conference in Tunisia and the Maghreb.",
+      "TIMUN organise la première conférence de simulation des Nations unies en Tunisie et au Maghreb.",
+    ),
   },
   {
     year: "2012",
-    title: "National expansion",
-    description: "Clubs are established throughout Tunisia.",
+    title: bilingual("National expansion", "Expansion nationale"),
+    description: bilingual(
+      "Clubs are established throughout Tunisia.",
+      "Des clubs sont créés partout en Tunisie.",
+    ),
   },
   {
     year: "2015",
-    title: "High Patronage",
-    description:
+    title: bilingual("High Patronage", "Haut Patronage"),
+    description: bilingual(
       "The organization comes under the High Patronage of the Ministry of Foreign Affairs.",
+      "L'organisation passe sous le Haut Patronage du ministère des Affaires étrangères.",
+    ),
   },
   {
     year: "2018",
-    title: "TIMUN Sfax",
-    description:
+    title: bilingual("TIMUN Sfax", "TIMUN Sfax"),
+    description: bilingual(
       "The first MUN in Sfax is organized, and a TIMUN club is founded in the city.",
+      "La première simulation des Nations unies est organisée à Sfax, et un club TIMUN y est fondé.",
+    ),
   },
 ] as const;

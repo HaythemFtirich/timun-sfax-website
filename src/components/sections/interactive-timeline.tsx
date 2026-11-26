@@ -8,12 +8,28 @@ import {
   type KeyboardEvent,
   type PointerEvent,
 } from "react";
-import { timeline } from "@/content/about";
+import { T } from "@/components/i18n";
 import { Section, SectionHeading } from "@/components/ui";
+import { timeline } from "@/content/about";
+import { bilingual, localize } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
+
+const sliderLabel = bilingual(
+  "Timeline milestones — scroll, drag sideways or use arrow keys",
+  "Étapes de la chronologie — défilez, glissez horizontalement ou utilisez les flèches",
+);
+const headingEyebrow = bilingual("Timeline", "Chronologie");
+const headingTitle = bilingual(
+  "Five moments. One movement.",
+  "Cinq moments. Un même élan.",
+);
+const interactionHint = bilingual(
+  "Click · drag · ← →",
+  "Clic · glisser · ← →",
+);
 
 /**
  * Interactive, numbers-forward timeline. A single rAF scroll pass drives a
@@ -29,6 +45,8 @@ export function InteractiveTimeline() {
   const movedRef = useRef(false);
   const holdUntilRef = useRef(0);
   const current = timeline[active];
+  const valueTextEn = `${current.year} — ${localize(current.title, "en")}`;
+  const valueTextFr = `${current.year} — ${localize(current.title, "fr")}`;
 
   useEffect(() => {
     const rail = railRef.current;
@@ -178,10 +196,13 @@ export function InteractiveTimeline() {
   };
 
   return (
-    <Section id="timeline" className="border-t border-line scroll-mt-24">
+    <Section
+      id="timeline"
+      className="scroll-mt-24 border-t border-line !pt-6 sm:!pt-8 lg:!pt-10"
+    >
       <SectionHeading
-        eyebrow="Timeline"
-        title="Five moments. One movement."
+        eyebrow={headingEyebrow}
+        title={headingTitle}
         headingId="timeline-heading"
       />
 
@@ -193,11 +214,16 @@ export function InteractiveTimeline() {
           )}
           role="slider"
           tabIndex={0}
-          aria-label="Timeline milestones — scroll, drag sideways or use arrow keys"
+          aria-label={sliderLabel.en}
+          data-i18n-attr="aria-label aria-valuetext"
+          data-i18n-aria-label-en={sliderLabel.en}
+          data-i18n-aria-label-fr={sliderLabel.fr}
           aria-valuemin={1}
           aria-valuemax={timeline.length}
           aria-valuenow={active + 1}
-          aria-valuetext={`${current.year} — ${current.title}`}
+          aria-valuetext={valueTextEn}
+          data-i18n-aria-valuetext-en={valueTextEn}
+          data-i18n-aria-valuetext-fr={valueTextFr}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
@@ -210,10 +236,12 @@ export function InteractiveTimeline() {
               {current.year}
             </p>
             <h3 className="mt-6 font-display text-card font-bold tracking-[var(--tracking-display)] text-foreground">
-              {current.title}
+              <T value={current.title} />
             </h3>
           </div>
-          <p className="mt-5 max-w-[42ch] text-muted">{current.description}</p>
+          <p className="mt-5 max-w-[42ch] text-muted">
+            <T value={current.description} />
+          </p>
 
           <div className="mt-10 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3" aria-hidden="true">
@@ -228,7 +256,7 @@ export function InteractiveTimeline() {
               ))}
             </div>
             <span className="font-mono text-micro uppercase tracking-[var(--tracking-micro)] text-muted">
-              Click · drag · ← →
+              <T value={interactionHint} />
             </span>
           </div>
         </div>
@@ -243,10 +271,14 @@ export function InteractiveTimeline() {
             const isActive = i === active;
             return (
               <li
-                key={event.year + event.title}
+                key={`${event.year}-${event.title.en}`}
                 className="relative pb-10 last:pb-0"
                 data-reveal
-                style={{ "--reveal-delay": `${Math.min(i * 70, 420)}ms` } as CSSProperties}
+                style={
+                  {
+                    "--reveal-delay": `${Math.min(i * 70, 420)}ms`,
+                  } as CSSProperties
+                }
               >
                 <span
                   aria-hidden="true"
@@ -274,10 +306,10 @@ export function InteractiveTimeline() {
                         : "text-cream/70 group-hover:text-gold-bright",
                     )}
                   >
-                    {event.title}
+                    <T value={event.title} />
                   </span>
                   <span className="mt-2 block max-w-[52ch] text-sm text-muted">
-                    {event.description}
+                    <T value={event.description} />
                   </span>
                 </button>
               </li>

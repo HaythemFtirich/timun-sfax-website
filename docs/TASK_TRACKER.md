@@ -2,7 +2,7 @@
 
 > **Legend:** `[ ]` Not started · `[x]` Completed · `[!]` Blocked / requires attention (see notes)
 > **Companion:** `MASTER_ROADMAP.md` (phase objectives and acceptance criteria), `SESSION_HANDOVER.md` (continuity).
-> **Last updated:** 19 November 2026 — Session 07 (interactive timeline, numbers dashboard, animated dashboard and photographs).
+> **Last updated:** 19 November 2026 — Session 14 (Phase 5 events started with owner-supplied data; photos/gallery pending).
 
 > **Rule:** A task is `[x]` only after its verification step has actually been performed and recorded. Owner-supplied content tasks remain `[!]` until the verified item is received — never simulate them with fabricated data.
 
@@ -29,6 +29,7 @@
   - *Dependency of:* P4-T1. *Verification:* owner chose **`Diplomacy. Leadership. Negotiation.`** on 19 Nov 2026 after a clarification question with suggested options; recorded in `DESIGN_SYSTEM.md` §12 and TD-22. Hero headline remains brand name only.
 - [!] **P0-T8** Owner: supply verified event data + selected photographs.
   - *Dependency of:* P5-T1…T6. *Verification:* one approved dataset per publishable event.
+  - *Notes (19 Nov 2026, Session 14):* owner supplied verified text details for three events — GeekMUN, The Great MUN and RedMUN (name, description, date, location) — published in `src/content/events.ts` and on `/events`. Selected photographs and click-through gallery assets are still outstanding; do not invent placeholders. Additional events may be supplied later.
 - [!] **P0-T9** Owner: supply final study-guide PDFs + titles/descriptions/keywords.
   - *Dependency of:* P6-T1…T6. *Verification:* files open and metadata matches.
 - [!] **P0-T10** Owner: supply current board names, official positions, portraits, profile links.
@@ -139,18 +140,20 @@
 
 ## Phase 5 — Events Overview & Detail
 
-- [ ] **P5-T1** Define event content model.
-  - *Dependencies:* P0-T8. *Verification:* type covers title, slug, overview, date, location, duration, gallery.
-- [ ] **P5-T2** Build `/events` editorial photographic grid.
-  - *Dependencies:* P3, P5-T1. *Verification:* cards use consistent crops/alt text.
-- [ ] **P5-T3** Build `/events/[slug]` detail template with static params.
-  - *Dependencies:* P5-T1. *Verification:* each approved event resolves to a route.
-- [ ] **P5-T4** Build accessible photo gallery with slideshow controls.
-  - *Dependencies:* P5-T3. *Verification:* keyboard controls; reduced-motion respected.
-- [ ] **P5-T5** Optimize event imagery.
+- [x] **P5-T1** Define event content model.
+  - *Dependencies:* P0-T8. *Verification:* `src/content/events.ts` defines `EventEntry` (slug, title, description, date, location) and the three owner-supplied events. Duration/gallery fields and image data are intentionally omitted until the owner supplies them; extend the model when photos arrive.
+- [x] **P5-T2** Build `/events` overview and event cards.
+  - *Dependencies:* P3, P5-T1. *Verification:* `/events` renders an editorial typographic card grid for the three approved events with dates, locations and links to detail pages; no photographs or placeholders. Photographic treatment is held until owner-supplied images arrive (P5-T5).
+- [x] **P5-T3** Build `/events/[slug]` detail template with static params.
+  - *Dependencies:* P5-T1. *Verification:* `generateStaticParams` prerenders `geekmun`, `the-great-mun`, `redmun`; detail pages render approved data, metadata, and back links; unknown slugs return 404. Params access wrapped in `<Suspense>` for Next.js 16 Cache Components dev compatibility.
+- [!] **P5-T4** Build accessible photo gallery with slideshow controls.
+  - *Dependencies:* P5-T3, owner-supplied images. *Verification:* keyboard controls; reduced-motion respected.
+  - *Notes:* held — owner will add pictures and a click-through gallery later; no fabricated assets or placeholders.
+- [!] **P5-T5** Optimize event imagery.
   - *Dependencies:* assets. *Verification:* responsive sizes; lazy loading below fold.
-- [ ] **P5-T6** Verify published event data against approved source.
-  - *Dependencies:* P0-T8. *Verification:* no invented facts.
+  - *Notes:* blocked on owner-supplied event photographs.
+- [x] **P5-T6** Verify published event data against approved source.
+  - *Dependencies:* P0-T8 (text data). *Verification:* GeekMUN, The Great MUN and RedMUN match the owner-supplied details from 19 Nov 2026 exactly in meaning (date, location, description); no invented facts, durations, outcomes or photos. Re-verify when photos or additional events are added.
 
 ---
 
@@ -257,7 +260,7 @@
 | --- | --- | --- |
 | Approved English copy / verified history | P0-T6, P0-T13 | Phase 4 |
 | Tagline decision | P0-T7 | P4-T1 |
-| Event data + photos | P0-T8 | Phase 5 |
+| Event photographs / gallery assets | P0-T8 (text data for 3 events supplied 19 Nov 2026) | Phase 5 gallery/imagery completion |
 | Study-guide PDFs + metadata | P0-T9 | Phase 6 |
 | Board profiles + portraits | P0-T10 | P4-T4, Phase 7 |
 | Partner assets | P0-T11 | P3-T4, Phase 4 |
